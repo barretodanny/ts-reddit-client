@@ -13,3 +13,9 @@ export const createUserSchema = object({
   message: "Passwords do not match",
   path: ["passwordConfirmation"],
 });
+
+// SESSION SCHEMAS
+export const createSessionSchema = object({
+  email: string().min(1, "Email is required.").email("Invalid email."),
+  password: string().min(1, "Password is required"),
+});
