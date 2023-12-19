@@ -27,7 +27,8 @@ function LoginForm() {
 
       // login success, cookies now set on browser with access/refresh tokens
       setLoginError("");
-      navigate("/");
+      // refresh page, redirects to home
+      navigate(0);
 
       // failed, set login error
     } catch (error: any) {
