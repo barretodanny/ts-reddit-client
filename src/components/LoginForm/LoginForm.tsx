@@ -2,11 +2,15 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
-// cookie?
 
 import { createSessionSchema } from "../../schemas/schemas";
 import { CreateSessionInput } from "../../types/types";
 import { createSession } from "../../api";
+
+import { AiOutlineMail } from "react-icons/ai";
+import { RiLockPasswordLine } from "react-icons/ri";
+
+import styles from "./LoginForm.module.css";
 
 function LoginForm() {
   const [loginError, setLoginError] = useState("");
@@ -39,32 +43,47 @@ function LoginForm() {
   }
 
   return (
-    <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <p>{loginError}</p>
+    <div className={styles.container}>
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.formContainer}>
+        <p className={styles.errorMessage}>{loginError}</p>
 
-        <div>
-          <label htmlFor="email">Email</label>
-          <div>
+        <div className={styles.formElement}>
+          <label htmlFor="email" className={styles.fieldText}>
+            Email
+          </label>
+          <div className={styles.inputWrapper}>
             <input
               id="email"
               type="email"
               placeholder="bobsmith@email.com"
               {...register("email")}
+              className={styles.fieldInput}
             />
+            <AiOutlineMail size={20} className={styles.icon} />
           </div>
-          <p>{errors.email?.message}</p>
+          <p className={styles.errorMessage}>{errors.email?.message}</p>
         </div>
 
-        <div>
-          <label htmlFor="password">Password</label>
-          <div>
-            <input id="password" type="password" {...register("password")} />
+        <div className={styles.formElement}>
+          <label htmlFor="password" className={styles.fieldText}>
+            Password
+          </label>
+          <div className={styles.inputWrapper}>
+            <input
+              id="password"
+              type="password"
+              {...register("password")}
+              className={styles.fieldInput}
+            />
+            <RiLockPasswordLine size={20} className={styles.icon} />
           </div>
-          <p>{errors.password?.message}</p>
+          <p className={styles.errorMessage}>{errors.password?.message}</p>
         </div>
 
-        <button type="submit"> LOGIN</button>
+        <button type="submit" className={styles.loginBtn}>
+          {" "}
+          LOGIN
+        </button>
       </form>
     </div>
   );
