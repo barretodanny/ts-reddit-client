@@ -1,5 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { AiOutlineSearch } from "react-icons/ai";
+
+import styles from "./NavSearchBar.module.css";
 
 function NavSearchBar() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -33,12 +36,14 @@ function NavSearchBar() {
   }
 
   return (
-    <div ref={searchBarRef}>
-      <form onSubmit={handleSearch}>
+    <div ref={searchBarRef} className={styles.container}>
+      <AiOutlineSearch size={26} />
+      <form onSubmit={handleSearch} className={styles.searchForm}>
         <input
           type="text"
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
+          className={styles.search}
         />
       </form>
     </div>
