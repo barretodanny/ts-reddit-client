@@ -18,9 +18,14 @@ import UserSubreddits from "./pages/UserSubreddits/UserSubreddits";
 import EditUser from "./pages/EditUser/EditUser";
 import Users from "./pages/Users/Users";
 
+import Navbar from "./components/Navbar/Navbar";
+import TopBtn from "./components/TopBtn/TopBtn";
+
 function App() {
   return (
     <Router>
+      <Navbar />
+      <TopBtn />
       <Routes>
         <Route path="/" element={<Home></Home>} />
         <Route path="/auth/login" element={<Login></Login>} />
