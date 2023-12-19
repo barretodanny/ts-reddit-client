@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { deleteSession } from "../../api";
 
+import styles from "./LogoutBtn.module.css";
+
 function LogoutBtn() {
   const navigate = useNavigate();
 
@@ -13,7 +15,11 @@ function LogoutBtn() {
     }
   }
 
-  return <button onClick={handleLogout}>Logout</button>;
+  return (
+    <button className={styles.logout} onClick={handleLogout}>
+      Logout
+    </button>
+  );
 }
 
 export default LogoutBtn;
