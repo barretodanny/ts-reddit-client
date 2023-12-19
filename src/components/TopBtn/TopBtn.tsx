@@ -1,5 +1,7 @@
 import { useState } from "react";
 
+import styles from "./TopBtn.module.css";
+
 function TopBtn() {
   const [scrollPos, setScrollPos] = useState(0);
 
@@ -22,7 +24,12 @@ function TopBtn() {
   }
 
   return (
-    <button onClick={handleClick} id="topBtn" title="Go to top">
+    <button
+      onClick={handleClick}
+      id="topBtn"
+      title="Go to top"
+      className={`${styles.container} ${scrollPos > 160 && styles.show}`}
+    >
       Back To Top
     </button>
   );
