@@ -1,0 +1,83 @@
+.container {
+  background-color: rgb(36, 36, 37);
+  max-width: 520px;
+  margin: auto;
+  border-radius: 5px;
+  padding: 25px 40px;
+}
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.errorMessage {
+  color: orangered;
+}
+
+.formElement {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+
+.fieldText {
+  color: white;
+}
+
+.inputWrapper {
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border: 1px solid #444;
+}
+
+.fieldInput {
+  background-color: rgb(26, 26, 27);
+  color: white;
+  padding: 8px;
+  border: none;
+  outline: none;
+  border-right: 1px solid #444;
+  width: 100%;
+}
+
+.fieldInput::placeholder {
+  color: white;
+  opacity: 0.5;
+}
+
+.icon {
+  color: white;
+  margin-right: 16px;
+}
+
+.registerBtn {
+  background-color: rgb(255, 103, 0);
+  cursor: pointer;
+  border: none;
+  outline: none;
+  color: white;
+  min-width: 125px;
+  padding: 16px 16px;
+  border-radius: 25px;
+  text-align: center;
+}
+
+.registerBtn:hover {
+  background-color: rgb(255, 123, 0);
+}
+
+@media only screen and (max-width: 480px) {
+  .container {
+    padding: 15px;
+  }
+
+  .registerBtn {
+    min-width: 95px;
+    padding: 12px;
+  }
+}

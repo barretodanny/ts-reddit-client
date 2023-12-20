@@ -8,6 +8,11 @@ import { CreateUserInput } from "../../types/types";
 
 import { createUser } from "../../api";
 
+import styles from "./RegisterForm.module.css";
+import { BiUserCircle } from "react-icons/bi";
+import { AiOutlineMail } from "react-icons/ai";
+import { RiLockPasswordLine } from "react-icons/ri";
+
 function RegisterForm() {
   const [registerError, setRegisterError] = useState("");
   const [usernameLength, setUsernameLength] = useState(0);
@@ -35,15 +40,15 @@ function RegisterForm() {
   }
 
   return (
-    <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <p>{registerError}</p>
+    <div className={styles.container}>
+      <form onSubmit={handleSubmit(onSubmit)} className={styles.formContainer}>
+        <p className={styles.errorMessage}>{registerError}</p>
 
-        <div>
-          <label htmlFor="username">
+        <div className={styles.formElement}>
+          <label htmlFor="username" className={styles.fieldText}>
             Username {usernameLength > 0 && `(${usernameLength})`}
           </label>
-          <div>
+          <div className={styles.inputWrapper}>
             <input
               id="username"
               type="text"
@@ -52,45 +57,67 @@ function RegisterForm() {
               onChange={(e) => {
                 setUsernameLength(e.target.value.length);
               }}
+              className={styles.fieldInput}
             />
+            <BiUserCircle size={20} className={styles.icon} />
           </div>
-          <p>{errors.username?.message}</p>
+          <p className={styles.errorMessage}>{errors.username?.message}</p>
         </div>
 
-        <div>
-          <label htmlFor="email">Email</label>
-          <div>
+        <div className={styles.formElement}>
+          <label htmlFor="email" className={styles.fieldText}>
+            Email
+          </label>
+          <div className={styles.inputWrapper}>
             <input
               id="email"
               type="email"
               placeholder="bobsmith@email.com"
               {...register("email")}
+              className={styles.fieldInput}
             />
+            <AiOutlineMail size={20} className={styles.icon} />
           </div>
-          <p>{errors.email?.message}</p>
+          <p className={styles.errorMessage}>{errors.email?.message}</p>
         </div>
 
-        <div>
-          <label htmlFor="password">Password</label>
-          <div>
-            <input id="password" type="password" {...register("password")} />
+        <div className={styles.formElement}>
+          <label htmlFor="password" className={styles.fieldText}>
+            Password
+          </label>
+          <div className={styles.inputWrapper}>
+            <input
+              id="password"
+              type="password"
+              {...register("password")}
+              className={styles.fieldInput}
+            />
+            <RiLockPasswordLine size={20} className={styles.icon} />
           </div>
-          <p>{errors.password?.message}</p>
+          <p className={styles.errorMessage}>{errors.password?.message}</p>
         </div>
 
-        <div>
-          <label htmlFor="passwordConfirmation">Confirm Password</label>
-          <div>
+        <div className={styles.formElement}>
+          <label htmlFor="passwordConfirmation" className={styles.fieldText}>
+            Confirm Password
+          </label>
+          <div className={styles.inputWrapper}>
             <input
               id="passwordConfirmation"
               type="password"
               {...register("passwordConfirmation")}
+              className={styles.fieldInput}
             />
+            <RiLockPasswordLine size={20} className={styles.icon} />
           </div>
-          <p>{errors.passwordConfirmation?.message}</p>
+          <p className={styles.errorMessage}>
+            {errors.passwordConfirmation?.message}
+          </p>
         </div>
 
-        <button type="submit">SIGN UP</button>
+        <button type="submit" className={styles.registerBtn}>
+          SIGN UP
+        </button>
       </form>
     </div>
   );
