@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { getLoggedInUser } from "../../api";
 import RegisterForm from "../../components/RegisterForm/RegisterForm";
+
+import styles from "./Register.module.css";
 
 function Register() {
   const [showPage, setShowPage] = useState(false);
@@ -9,6 +11,8 @@ function Register() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    document.title = "Sign Up";
+
     const fetchLoggedInUser = async () => {
       try {
         const response = await getLoggedInUser();
@@ -30,14 +34,21 @@ function Register() {
 
   if (showPage) {
     return (
-      <div>
-        <h3>Register Page</h3>
+      <div className={styles.container}>
+        <h1 className={`${styles.text} ${styles.heading}`}>Welcome!</h1>
+        <h3 className={`${styles.text} ${styles.subHeading}`}>
+          Create an account
+        </h3>
         <RegisterForm />
+        <p className={styles.text}>
+          Alrready have an account?{" "}
+          <Link to={"/auth/login"} className={styles.loginText}>
+            Login
+          </Link>
+        </p>
       </div>
     );
   }
-
-  return <></>;
 }
 
 export default Register;
