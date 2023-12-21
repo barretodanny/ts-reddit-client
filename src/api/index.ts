@@ -49,3 +49,14 @@ export async function getUserPostVote(postId: string) {
   });
   return response;
 }
+
+export async function createPostVote(postId: string, value: number) {
+  const body = {
+    post: postId,
+    value,
+  };
+  const response = await axios.post(`${ENDPOINT}/votes`, body, {
+    withCredentials: true,
+  });
+  return response.data;
+}
