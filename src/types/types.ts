@@ -46,3 +46,14 @@ export interface Comment {
   updatedAt: string;
   __v: string;
 }
+
+export interface Vote {
+  _id: string;
+  user: User;
+  post?: Post;
+  comment?: Comment;
+  value: number;
+  createdAt: string;
+  updatedAt: string;
+  __v: string;
+}
