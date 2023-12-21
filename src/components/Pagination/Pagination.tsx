@@ -6,6 +6,7 @@ import {
 } from "../../utils/utils";
 
 import styles from "./Pagination.module.css";
+import { useEffect, useState } from "react";
 
 interface PaginationProps {
   searchParams: string;
@@ -13,6 +14,8 @@ interface PaginationProps {
 }
 
 function Pagination({ searchParams, count }: PaginationProps) {
+  const [loading, setLoading] = useState(false);
+
   const page = getPageQueryParam(searchParams);
   const limit = getLimitQueryParam(searchParams);
   const pageCount = Math.ceil(count / limit);
@@ -20,20 +23,34 @@ function Pagination({ searchParams, count }: PaginationProps) {
   const location = useLocation();
   const url = location.pathname;
 
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 350);
+  }, [searchParams]);
+
   return (
     <div className={styles.container}>
       <Link
         to={`${url}${updatePageQueryParam(searchParams, page, 1)}`}
         className={`${styles.pageBtn} ${
           pageCount < 5 || page === 1 ? styles.hidden : ""
-        }`}
+        } ${loading && styles.hidden}`}
+        onClick={() => {
+          setLoading(true);
+        }}
       >
         Page 1
       </Link>
 
       <Link
         to={`${url}${updatePageQueryParam(searchParams, page, page - 1)}`}
-        className={`${styles.pageBtn} ${page < 2 ? styles.hidden : ""}`}
+        className={`${styles.pageBtn} ${page < 2 ? styles.hidden : ""} ${
+          loading && styles.hidden
+        }`}
+        onClick={() => {
+          setLoading(true);
+        }}
       >
         Prev Page
       </Link>
@@ -44,7 +61,10 @@ function Pagination({ searchParams, count }: PaginationProps) {
         to={`${url}${updatePageQueryParam(searchParams, page, page + 1)}`}
         className={`${styles.pageBtn} ${
           page >= pageCount ? styles.hidden : ""
-        }`}
+        } ${loading && styles.hidden}`}
+        onClick={() => {
+          setLoading(true);
+        }}
       >
         Next Page
       </Link>
@@ -53,7 +73,10 @@ function Pagination({ searchParams, count }: PaginationProps) {
         to={`${url}${updatePageQueryParam(searchParams, page, pageCount)}`}
         className={`${styles.pageBtn} ${
           pageCount < 5 || page === pageCount ? styles.hidden : ""
-        }`}
+        } ${loading && styles.hidden}`}
+        onClick={() => {
+          setLoading(true);
+        }}
       >
         Page {pageCount}
       </Link>
