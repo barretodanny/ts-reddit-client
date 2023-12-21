@@ -34,3 +34,10 @@ export const getPosts = async (searchParams: string) => {
   const response = await axios.get(`${ENDPOINT}/posts${searchParams}`);
   return response;
 };
+
+export const getPostCount = async (searchParams?: string) => {
+  const response = await axios.head(
+    `${ENDPOINT}/posts${searchParams ? `${searchParams}` : ""}`
+  );
+  return response;
+};
