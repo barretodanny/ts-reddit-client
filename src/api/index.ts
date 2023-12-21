@@ -60,3 +60,13 @@ export async function createPostVote(postId: string, value: number) {
   });
   return response.data;
 }
+
+export async function updatePostVote(voteId: string, value: number) {
+  const body = {
+    value,
+  };
+  const response = await axios.put(`${ENDPOINT}/votes/${voteId}`, body, {
+    withCredentials: true,
+  });
+  return response.data;
+}
