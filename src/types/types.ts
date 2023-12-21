@@ -13,3 +13,12 @@ export interface User {
   updatedAt: string;
   __v: string;
 }
+
+export interface Subreddit {
+  _id: string;
+  user: User;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
+  __v: string;
+}
