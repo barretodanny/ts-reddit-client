@@ -22,3 +22,15 @@ export interface Subreddit {
   updatedAt: string;
   __v: string;
 }
+
+export interface Post {
+  _id: string;
+  user: User;
+  subreddit: Subreddit;
+  title: string;
+  content: string;
+  points: number;
+  createdAt: string;
+  updatedAt: string;
+  __v: string;
+}
