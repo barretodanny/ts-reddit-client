@@ -70,3 +70,10 @@ export async function updatePostVote(voteId: string, value: number) {
   });
   return response.data;
 }
+
+export async function deletePostVote(voteId: string) {
+  const response = await axios.delete(`${ENDPOINT}/votes/${voteId}`, {
+    withCredentials: true,
+  });
+  return response;
+}
