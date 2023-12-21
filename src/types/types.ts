@@ -34,3 +34,15 @@ export interface Post {
   updatedAt: string;
   __v: string;
 }
+
+export interface Comment {
+  _id: string;
+  user: User;
+  post: Post;
+  parent?: string;
+  content: string;
+  points: number;
+  createdAt: string;
+  updatedAt: string;
+  __v: string;
+}
