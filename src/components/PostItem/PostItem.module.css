@@ -1,0 +1,125 @@
+.container {
+  background-color: rgb(36, 36, 37);
+  margin-bottom: 5px;
+  width: 100%;
+  display: flex;
+  max-height: 360px;
+  border: 1px solid #555;
+  padding-bottom: 5px;
+}
+
+.right {
+  padding: 8px 12px;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.info {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.info span {
+  color: rgb(224, 224, 224);
+}
+
+.infoLink,
+.postLink {
+  text-decoration: none;
+  color: white;
+}
+
+.postLink {
+  min-height: 150px;
+  color: rgb(113, 206, 113);
+}
+
+.infoLink,
+.postedBy,
+.cutText {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.infoLink:hover,
+.postLink:hover {
+  text-decoration: underline;
+}
+
+.deleted {
+  margin: 0;
+  color: rgb(212, 118, 118);
+}
+
+.postLink {
+  max-width: 1600px;
+}
+
+.title {
+  display: inline-block;
+  margin-top: 6px;
+  font-weight: 600;
+  color: rgb(113, 206, 113);
+  font-size: 18px;
+  word-wrap: break-word;
+  overflow-y: hidden;
+  text-overflow: ellipsis;
+}
+
+.content {
+  max-height: 150px;
+  color: white;
+  word-wrap: break-word;
+  overflow-y: hidden;
+  text-overflow: ellipsis;
+}
+
+.title,
+.content {
+  display: block;
+  text-decoration: none;
+}
+
+.contentLink {
+  text-decoration: none;
+}
+
+.subLink {
+  color: orange;
+}
+
+.userLink {
+  color: rgb(191, 221, 248);
+}
+
+@media only screen and (max-width: 770px) {
+  .infoLink,
+  .text,
+  .content,
+  .postedBy {
+    font-size: 14px;
+  }
+
+  .title {
+    font-size: 16px;
+  }
+}
+
+@media only screen and (max-width: 590px) {
+  .right {
+    padding: 4px 6px;
+  }
+}
+
+@media only screen and (max-width: 390px) {
+  .postedBy {
+    display: none;
+  }
+}
