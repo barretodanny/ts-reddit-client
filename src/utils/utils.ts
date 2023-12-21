@@ -69,3 +69,27 @@ export function updatePageQueryParam(
   }
   return queryString.replace("" + oldPage, "" + newPage);
 }
+
+export function getTimeAgo(createdAt: string) {
+  const now = new Date(); // Current date and time
+  const createdAtDate = new Date(createdAt); // Convert the string to a Date object
+
+  // Calculate the time difference in milliseconds
+  const timeDiff = now.getTime() - createdAtDate.getTime();
+
+  // Convert the time difference to minutes, hours, or days
+  const minutes = Math.floor(timeDiff / (1000 * 60));
+  const hours = Math.floor(timeDiff / (1000 * 60 * 60));
+  const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+
+  // Return the appropriate time ago format
+  if (minutes < 1) {
+    return "Just now";
+  } else if (minutes < 60) {
+    return minutes + " minutes ago";
+  } else if (hours < 24) {
+    return hours + " hours ago";
+  } else {
+    return days + " days ago";
+  }
+}
