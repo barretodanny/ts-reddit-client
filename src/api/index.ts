@@ -41,3 +41,11 @@ export const getPostCount = async (searchParams?: string) => {
   );
   return response;
 };
+
+// VOTES
+export async function getUserPostVote(postId: string) {
+  const response = await axios.get(`${ENDPOINT}/votes?postId=${postId}`, {
+    withCredentials: true,
+  });
+  return response;
+}
