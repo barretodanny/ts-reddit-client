@@ -1,9 +1,14 @@
 import { TypeOf } from "zod";
 
-import { createUserSchema, createSessionSchema } from "../schemas/schemas";
+import {
+  createUserSchema,
+  createSessionSchema,
+  createSubredditSchema,
+} from "../schemas/schemas";
 
 export type CreateUserInput = TypeOf<typeof createUserSchema>;
 export type CreateSessionInput = TypeOf<typeof createSessionSchema>;
+export type CreateSubredditInput = TypeOf<typeof createSubredditSchema>;
 
 export interface User {
   _id: string;
