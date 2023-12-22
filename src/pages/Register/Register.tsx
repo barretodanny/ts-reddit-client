@@ -41,7 +41,7 @@ function Register() {
         </h3>
         <RegisterForm />
         <p className={styles.text}>
-          Alrready have an account?{" "}
+          Already have an account?{" "}
           <Link to={"/auth/login"} className={styles.loginText}>
             Login
           </Link>
