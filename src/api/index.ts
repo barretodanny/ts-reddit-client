@@ -1,5 +1,9 @@
 import axios from "axios";
-import { CreateSessionInput, CreateUserInput } from "../types/types";
+import {
+  CreateSessionInput,
+  CreateSubredditInput,
+  CreateUserInput,
+} from "../types/types";
 
 const ENDPOINT = "http://localhost:1337/api";
 
@@ -41,6 +45,13 @@ export const getSubredditCount = async (searchParams?: string) => {
   );
   return response;
 };
+
+export async function createSubreddit(payload: CreateSubredditInput) {
+  const response = await axios.post(`${ENDPOINT}/subreddits`, payload, {
+    withCredentials: true,
+  });
+  return response.data;
+}
 
 // POSTS
 export const getPosts = async (searchParams: string) => {
