@@ -1,0 +1,32 @@
+.container {
+  background-color: rgb(36, 36, 37);
+  padding: 5px;
+  margin-bottom: 15px;
+  width: calc(100% - 10px);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 60px;
+  border: 1px solid #555;
+}
+
+.grey {
+  color: rgb(224, 224, 224);
+}
+
+.link {
+  padding: 10px 0;
+  color: rgb(191, 221, 248);
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+@media only screen and (max-width: 770px) {
+  .grey,
+  .link {
+    font-size: 14px;
+  }
+}
