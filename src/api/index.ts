@@ -29,6 +29,12 @@ export const getLoggedInUser = async () => {
   return response;
 };
 
+// SUBREDDITS
+export const getSubreddits = async (searchParams: string) => {
+  const response = await axios.get(`${ENDPOINT}/subreddits${searchParams}`);
+  return response;
+};
+
 // POSTS
 export const getPosts = async (searchParams: string) => {
   const response = await axios.get(`${ENDPOINT}/posts${searchParams}`);
