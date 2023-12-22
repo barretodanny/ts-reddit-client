@@ -1,0 +1,75 @@
+.container {
+  background-color: rgb(36, 36, 37);
+  padding: 5px;
+  margin-bottom: 5px;
+  width: calc(100% - 10px);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 60px;
+  border: 1px solid #555;
+}
+
+.info {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.grey {
+  color: rgb(224, 224, 224);
+}
+
+.link {
+  text-decoration: none;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.subLink {
+  padding: 10px 0;
+  color: orange;
+}
+
+.userLink {
+  color: rgb(191, 221, 248);
+}
+
+.subLink,
+.userLink {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.white {
+  color: white;
+}
+
+.deleted {
+  color: rgb(212, 118, 118);
+}
+
+@media only screen and (max-width: 770px) {
+  .infoLink,
+  .text,
+  .content,
+  .postedBy {
+    font-size: 14px;
+  }
+}
+
+@media only screen and (max-width: 590px) {
+  .right {
+    padding: 4px 6px;
+  }
+}
+
+@media only screen and (max-width: 390px) {
+  .createdBy {
+    display: none;
+  }
+}
