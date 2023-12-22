@@ -5,9 +5,9 @@ import { getLoggedInUser, getPosts, getPostCount } from "../../api";
 
 import SortingOptions from "../../components/SortingOptions/SortingOptions";
 import Pagination from "../../components/Pagination/Pagination";
+import PostList from "../../components/PostList/PostList";
 
 import styles from "./Home.module.css";
-import PostList from "../../components/PostList/PostList";
 
 function Home() {
   const [posts, setPosts] = useState<Post[]>([]);
@@ -19,7 +19,6 @@ function Home() {
   const searchParams = location.search;
 
   useEffect(() => {
-    const abortController = new AbortController();
     document.title = "Reddit - Home";
 
     const fetchPosts = async () => {
@@ -31,7 +30,7 @@ function Home() {
       }
     };
 
-    const fetchPostsCount = async () => {
+    const fetchPostCount = async () => {
       try {
         const response = await getPostCount();
         const count = parseInt(response.headers["total-post-count"]) || 0;
@@ -56,12 +55,8 @@ function Home() {
     };
 
     fetchPosts();
-    fetchPostsCount();
+    fetchPostCount();
     fetchLoggedInUser();
-
-    return () => {
-      abortController.abort();
-    };
   }, [searchParams]);
 
   if (!showContent) {
