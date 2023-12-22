@@ -13,6 +13,13 @@ export const getUsers = async (searchParams: string) => {
   return response;
 };
 
+export const getUserCount = async (searchParams?: string) => {
+  const response = await axios.head(
+    `${ENDPOINT}/users${searchParams ? `${searchParams}` : ""}`
+  );
+  return response;
+};
+
 export const createUser = async (userData: CreateUserInput) => {
   const response = await axios.post(`${ENDPOINT}/users`, userData);
   return response;
