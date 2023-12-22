@@ -1,4 +1,3 @@
-import React from "react";
 import { Post, User } from "../../types/types";
 import PostItem from "../PostItem/PostItem";
 
@@ -25,9 +24,7 @@ function PostList({ posts, loggedInUser, user }: PostListProps) {
       )}
       {posts.map((post: Post) => {
         return (
-          <>
-            <PostItem key={post._id} post={post} loggedInUser={loggedInUser} />
-          </>
+          <PostItem key={post._id} post={post} loggedInUser={loggedInUser} />
         );
       })}
     </div>
