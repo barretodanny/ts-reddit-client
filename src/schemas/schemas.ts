@@ -19,3 +19,8 @@ export const createSessionSchema = object({
   email: string().min(1, "Email is required.").email("Invalid email."),
   password: string().min(1, "Password is required"),
 });
+
+// SUBREDDIT SCHEMAS
+export const createSubredditSchema = object({
+  name: string().min(1, "Subreddit name is required"),
+});
