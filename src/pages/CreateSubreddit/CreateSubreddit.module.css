@@ -1,0 +1,71 @@
+.container {
+  padding: 15px 75px;
+}
+
+.center {
+  text-align: center;
+}
+
+.white {
+  color: white;
+}
+
+.text {
+  margin-top: 10px;
+}
+
+.headingLink {
+  text-decoration: none;
+  color: white;
+}
+
+.headingLink:hover {
+  text-decoration: underline;
+}
+
+.heading {
+  margin: 0 0 25px;
+}
+
+.loginLink {
+  text-decoration: none;
+  color: green;
+}
+
+.loginLink:hover {
+  text-decoration: underline;
+}
+
+@media only screen and (max-width: 920px) {
+  .heading {
+    font-size: 27px;
+  }
+}
+
+@media only screen and (max-width: 820px) {
+  .heading {
+    font-size: 22px;
+  }
+}
+
+@media only screen and (max-width: 720px) {
+  .container {
+    padding: 15px 15px;
+  }
+}
+
+@media only screen and (max-width: 580px) {
+  .heading {
+    font-size: 18px;
+  }
+
+  .container {
+    padding: 15px 5px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .heading {
+    font-size: 16px;
+  }
+}
