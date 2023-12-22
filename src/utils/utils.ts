@@ -55,6 +55,43 @@ export function getLimitQueryParam(queryString: string) {
   }
 }
 
+export function getSearchQueryParam(queryString: string) {
+  const urlSearchParams = new URLSearchParams(queryString);
+  const searchParam = urlSearchParams.get("search");
+  return searchParam;
+}
+
+export function getSearchTypeQueryParam(queryString: string) {
+  const urlSearchParams = new URLSearchParams(queryString);
+  const searchTypeParam = urlSearchParams.get("type");
+
+  if (searchTypeParam) {
+    return searchTypeParam;
+  } else {
+    return "posts";
+  }
+}
+
+export function updateSearchTypeQueryParam(
+  queryString: string,
+  oldType: string,
+  newType: string
+) {
+  // When changing search type category, also reset back to page 1 if not already there
+  if (queryString.includes("page=")) {
+    queryString = queryString.replace(/page=[^&]+/, "page=1");
+  }
+
+  if (!queryString.includes("type=")) {
+    if (queryString.includes("?")) {
+      queryString += `&type=${newType}`;
+    } else {
+      queryString += `?type=${newType}`;
+    }
+  }
+  return queryString.replace(oldType, newType);
+}
+
 export function updatePageQueryParam(
   queryString: string,
   oldPage: number,
