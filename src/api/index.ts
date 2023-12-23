@@ -78,6 +78,18 @@ export const getPosts = async (searchParams: string) => {
   return response;
 };
 
+export const getSubredditPosts = async (
+  subredditId: string,
+  searchParams: string
+) => {
+  const response = await axios.get(
+    `${ENDPOINT}/posts?subredditId=${subredditId}${
+      searchParams && `&${searchParams.replace("?", "")}`
+    }`
+  );
+  return response;
+};
+
 export const getPostCount = async (searchParams?: string) => {
   const response = await axios.head(
     `${ENDPOINT}/posts${searchParams ? `${searchParams}` : ""}`
