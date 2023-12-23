@@ -97,6 +97,18 @@ export const getPostCount = async (searchParams?: string) => {
   return response;
 };
 
+export const getSubredditPostCount = async (
+  subredditId: string,
+  searchParams: string
+) => {
+  const response = await axios.head(
+    `${ENDPOINT}/posts?subredditId=${subredditId}${
+      searchParams && `&${searchParams.replace("?", "")}`
+    }`
+  );
+  return response;
+};
+
 // VOTES
 export async function getUserPostVote(postId: string) {
   const response = await axios.get(`${ENDPOINT}/votes?postId=${postId}`, {
