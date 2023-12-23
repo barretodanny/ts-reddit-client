@@ -24,3 +24,9 @@ export const createSessionSchema = object({
 export const createSubredditSchema = object({
   name: string().min(1, "Subreddit name is required"),
 });
+
+// POST SCHEMAS
+export const createPostSchema = object({
+  title: string().min(1, "Post title is required"),
+  content: string().min(1, "Post content is required"),
+});
