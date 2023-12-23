@@ -1,5 +1,6 @@
 import axios from "axios";
 import {
+  CreatePostInput,
   CreateSessionInput,
   CreateSubredditInput,
   CreateUserInput,
@@ -106,6 +107,17 @@ export const getSubredditPostCount = async (
       searchParams && `&${searchParams.replace("?", "")}`
     }`
   );
+  return response;
+};
+
+export const createPost = async (
+  subredditId: string,
+  payload: CreatePostInput
+) => {
+  const body = { ...payload, subreddit: subredditId };
+  const response = await axios.post(`${ENDPOINT}/posts`, body, {
+    withCredentials: true,
+  });
   return response;
 };
 
