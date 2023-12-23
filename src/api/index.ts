@@ -51,6 +51,13 @@ export const getSubreddits = async (searchParams: string) => {
   return response;
 };
 
+export const getSubredditByName = async (name: string) => {
+  const response = await axios.get(
+    `${ENDPOINT}/subreddits/${name}?string=true`
+  );
+  return response.data;
+};
+
 export const getSubredditCount = async (searchParams?: string) => {
   const response = await axios.head(
     `${ENDPOINT}/subreddits${searchParams ? `${searchParams}` : ""}`
