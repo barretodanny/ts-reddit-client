@@ -130,3 +130,15 @@ export function getTimeAgo(createdAt: string) {
     return days + " days ago";
   }
 }
+
+export function extractSubredditName(url: string) {
+  // regex pattern
+  const pattern = /\/r\/([^/]+)/;
+  const match = url.match(pattern);
+
+  if (match && match[1]) {
+    return match[1];
+  } else {
+    return "";
+  }
+}
