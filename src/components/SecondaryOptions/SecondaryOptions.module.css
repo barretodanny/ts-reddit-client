@@ -1,0 +1,58 @@
+.container {
+  border: 1px solid #444;
+  padding: 10px;
+  background-color: rgb(36, 36, 37);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.bottom {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.link {
+  display: inline-block;
+  text-decoration: none;
+  text-align: center;
+  margin: auto;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+.blueLink {
+  color: rgb(173, 231, 248);
+}
+
+.blueLink:hover {
+  color: rgb(121, 216, 245);
+}
+
+.greenLink {
+  color: rgb(182, 248, 173);
+}
+
+.greenLink:hover {
+  color: rgb(133, 255, 117);
+}
+
+@media only screen and (max-width: 580px) {
+  .link {
+    font-size: 14px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .link {
+    font-size: 12px;
+  }
+}
