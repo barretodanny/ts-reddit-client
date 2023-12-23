@@ -4,11 +4,13 @@ import {
   createUserSchema,
   createSessionSchema,
   createSubredditSchema,
+  createPostSchema,
 } from "../schemas/schemas";
 
 export type CreateUserInput = TypeOf<typeof createUserSchema>;
 export type CreateSessionInput = TypeOf<typeof createSessionSchema>;
 export type CreateSubredditInput = TypeOf<typeof createSubredditSchema>;
+export type CreatePostInput = TypeOf<typeof createPostSchema>;
 
 export interface User {
   _id: string;
