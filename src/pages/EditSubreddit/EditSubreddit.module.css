@@ -1,0 +1,93 @@
+.container {
+  padding: 15px 75px;
+}
+
+.center {
+  text-align: center;
+}
+
+.white {
+  color: white;
+}
+
+.orange {
+  color: orange;
+}
+
+.warning {
+  color: orangered;
+}
+
+.text {
+  margin-top: 10px;
+}
+
+.nfHeading {
+  margin: 0;
+  margin-top: 25px;
+  text-align: center;
+  color: white;
+}
+
+.heading {
+  margin: 0 0 25px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.subLink {
+  text-decoration: none;
+  color: orange;
+}
+
+.subLink:hover {
+  text-decoration: underline;
+}
+
+.loginLink {
+  text-decoration: none;
+  color: green;
+}
+
+.loginLink:hover {
+  text-decoration: underline;
+}
+
+@media only screen and (max-width: 920px) {
+  .heading,
+  .nfHeading {
+    font-size: 27px;
+  }
+}
+
+@media only screen and (max-width: 820px) {
+  .heading,
+  .nfHeading {
+    font-size: 22px;
+  }
+}
+
+@media only screen and (max-width: 720px) {
+  .container {
+    padding: 15px 15px;
+  }
+}
+
+@media only screen and (max-width: 580px) {
+  .heading,
+  .nfHeading {
+    font-size: 18px;
+  }
+
+  .container {
+    padding: 15px 5px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .heading,
+  .nfHeading {
+    font-size: 16px;
+  }
+}
