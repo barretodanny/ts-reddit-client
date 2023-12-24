@@ -86,6 +86,13 @@ export async function updateSubreddit(
   return response;
 }
 
+export async function deleteSubreddit(subredditId: string) {
+  const response = await axios.delete(`${ENDPOINT}/subreddits/${subredditId}`, {
+    withCredentials: true,
+  });
+  return response;
+}
+
 // POSTS
 export const getPosts = async (searchParams: string) => {
   const response = await axios.get(`${ENDPOINT}/posts${searchParams}`);
