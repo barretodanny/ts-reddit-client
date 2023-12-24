@@ -1,4 +1,4 @@
-import { object, string } from "zod";
+import { literal, object, string } from "zod";
 
 // USER SCHEMAS
 export const createUserSchema = object({
@@ -23,6 +23,10 @@ export const createSessionSchema = object({
 // SUBREDDIT SCHEMAS
 export const createSubredditSchema = object({
   name: string().min(1, "Subreddit name is required"),
+});
+
+export const editSubredditSchema = object({
+  name: string().optional().or(literal("")),
 });
 
 // POST SCHEMAS
