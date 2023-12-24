@@ -4,6 +4,7 @@ import {
   CreateSessionInput,
   CreateSubredditInput,
   CreateUserInput,
+  EditSubredditInput,
 } from "../types/types";
 
 const ENDPOINT = "http://localhost:1337/api";
@@ -71,6 +72,18 @@ export async function createSubreddit(payload: CreateSubredditInput) {
     withCredentials: true,
   });
   return response.data;
+}
+
+export async function updateSubreddit(
+  subredditId: string,
+  payload: EditSubredditInput
+) {
+  const response = await axios.put(
+    `${ENDPOINT}/subreddits/${subredditId}`,
+    payload,
+    { withCredentials: true }
+  );
+  return response;
 }
 
 // POSTS
