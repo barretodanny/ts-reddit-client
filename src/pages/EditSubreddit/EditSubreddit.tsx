@@ -3,9 +3,9 @@ import { Subreddit, User } from "../../types/types";
 import { Link, useLocation } from "react-router-dom";
 import { extractSubredditName } from "../../utils/utils";
 import { getLoggedInUser, getSubredditByName } from "../../api";
+import EditSubredditForm from "../../components/EditSubredditForm/EditSubredditForm";
 
 import styles from "./EditSubreddit.module.css";
-import EditSubredditForm from "../../components/EditSubredditForm/EditSubredditForm";
 
 function EditSubreddit() {
   const [subreddit, setSubreddit] = useState<Subreddit>();
@@ -17,7 +17,7 @@ function EditSubreddit() {
   const subredditName = extractSubredditName(url);
 
   useEffect(() => {
-    document.title = subreddit ? `Edit Subreddit` : "Not found";
+    document.title = `Edit Subreddit - ${subredditName}`;
 
     const fetchSubreddit = async () => {
       try {
