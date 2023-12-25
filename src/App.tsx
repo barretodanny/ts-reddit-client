@@ -37,8 +37,8 @@ function App() {
           path="/r/:name/search"
           element={<SearchSubreddit></SearchSubreddit>}
         />
-        <Route path="/r/:name/:id" element={<Post></Post>} />
-        <Route path="/r/:name/:id/edit" element={<EditPost></EditPost>} />
+        <Route path="/r/:name/post/:id" element={<Post></Post>} />
+        <Route path="/r/:name/post/:id/edit" element={<EditPost></EditPost>} />
         <Route path="/search" element={<Search></Search>} />
         <Route path="/subreddits" element={<Subreddits></Subreddits>} />
         <Route
