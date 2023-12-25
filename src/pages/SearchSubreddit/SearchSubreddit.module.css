@@ -1,0 +1,93 @@
+.container {
+  padding: 15px 75px;
+}
+
+.nfHeading {
+  margin: 0;
+  margin-top: 25px;
+  text-align: center;
+  color: white;
+}
+
+.heading {
+  margin: 0;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.white {
+  color: white;
+}
+
+.orange {
+  color: orange;
+}
+
+.subLink {
+  text-decoration: none;
+  color: orange;
+}
+
+.subLink:hover {
+  text-decoration: underline;
+}
+
+.searchTerm {
+  margin-top: 30px;
+  word-wrap: break-word;
+  text-align: center;
+}
+
+.notFound {
+  margin-top: 25px;
+  word-wrap: break-word;
+  text-align: center;
+}
+
+@media only screen and (max-width: 920px) {
+  .heading,
+  .nfHeading,
+  .notFound,
+  .searchTerm {
+    font-size: 27px;
+  }
+}
+
+@media only screen and (max-width: 820px) {
+  .heading,
+  .nfHeading,
+  .notFound,
+  .searchTerm {
+    font-size: 22px;
+  }
+}
+
+@media only screen and (max-width: 720px) {
+  .container {
+    padding: 15px 15px;
+  }
+}
+
+@media only screen and (max-width: 580px) {
+  .heading,
+  .nfHeading,
+  .notFound,
+  .searchTerm {
+    font-size: 18px;
+  }
+
+  .container {
+    padding: 15px 5px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .heading,
+  .nfHeading,
+  .notFound,
+  .searchTerm {
+    font-size: 16px;
+  }
+}
