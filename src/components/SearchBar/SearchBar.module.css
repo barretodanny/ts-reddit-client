@@ -1,0 +1,21 @@
+.container {
+  margin: 35px auto;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  padding: 5px 12px 5px 3px;
+  border-radius: 15px;
+  gap: 5px;
+  width: 75%;
+}
+
+.searchForm {
+  width: 100%;
+}
+
+.search {
+  padding: 3px;
+  width: 98%;
+  outline: none;
+  border: none;
+}
