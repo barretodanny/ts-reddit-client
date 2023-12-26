@@ -222,3 +222,10 @@ export async function deletePostVote(voteId: string) {
   });
   return response;
 }
+
+export async function getUserCommentVote(commentId: string) {
+  const response = await axios.get(`${ENDPOINT}/votes?commentId=${commentId}`, {
+    withCredentials: true,
+  });
+  return response;
+}
