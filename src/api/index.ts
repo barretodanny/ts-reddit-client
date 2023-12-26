@@ -1,5 +1,6 @@
 import axios from "axios";
 import {
+  CreateCommentInput,
   CreatePostInput,
   CreateSessionInput,
   CreateSubredditInput,
@@ -140,6 +141,23 @@ export const createPost = async (
   });
   return response;
 };
+
+export const getPostById = async (postId: string) => {
+  const response = await axios.get(`${ENDPOINT}/posts/${postId}`);
+  return response;
+};
+
+// COMMENTS
+export async function createComment(
+  postId: string,
+  payload: CreateCommentInput
+) {
+  const body = { ...payload, post: postId };
+  const response = await axios.post(`${ENDPOINT}/comments`, body, {
+    withCredentials: true,
+  });
+  return response;
+}
 
 // VOTES
 export async function getUserPostVote(postId: string) {
