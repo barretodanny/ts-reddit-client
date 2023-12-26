@@ -175,6 +175,18 @@ export async function getPostComments(postId: string, searchParams: string) {
   return response;
 }
 
+export async function getCommentReplies(
+  parentId: string,
+  searchParams: string
+) {
+  const response = await axios.get(
+    `${ENDPOINT}/comments?parentId=${parentId}${
+      searchParams && `&${searchParams}`
+    }`
+  );
+  return response;
+}
+
 // VOTES
 export async function getUserPostVote(postId: string) {
   const response = await axios.get(`${ENDPOINT}/votes?postId=${postId}`, {
