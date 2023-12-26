@@ -159,6 +159,13 @@ export async function createComment(
   return response;
 }
 
+export async function deleteComment(commentId: string) {
+  const response = await axios.delete(`${ENDPOINT}/comments/${commentId}`, {
+    withCredentials: true,
+  });
+  return response;
+}
+
 // VOTES
 export async function getUserPostVote(postId: string) {
   const response = await axios.get(`${ENDPOINT}/votes?postId=${postId}`, {
