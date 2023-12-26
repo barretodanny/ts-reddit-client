@@ -1,0 +1,16 @@
+.container {
+  padding: 3px;
+  margin-top: 10px;
+  background-color: rgb(36, 36, 37);
+  border: 1px solid #444;
+}
+
+.heading {
+  margin: 0;
+  text-align: center;
+  color: white;
+}
+
+.mt45 {
+  margin-top: 45px;
+}
