@@ -1,0 +1,103 @@
+.commentContainer {
+  background-color: rgb(31, 31, 32);
+  display: flex;
+  align-items: flex-start;
+  border: 1px solid #444;
+  padding: 3px 0;
+}
+
+.collapsedComment {
+  background-color: rgb(31, 31, 32);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 1px solid #444;
+  margin-bottom: 15px;
+}
+
+.right {
+  width: 80%;
+  padding: 6px 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.info {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.infoText {
+  color: rgb(214, 214, 214);
+}
+
+.userLink {
+  display: inline-block;
+  text-decoration: none;
+  color: rgb(191, 221, 248);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+.userLink:hover {
+  text-decoration: underline;
+}
+
+.content {
+  width: 100%;
+  color: white;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+
+.btn {
+  max-width: 80px;
+  height: 20px;
+  cursor: pointer;
+}
+
+.delete {
+  color: white;
+  background-color: red;
+  border: none;
+}
+
+.delete:hover {
+  background-color: rgb(255, 47, 0);
+}
+
+.bottom {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+@media only screen and (max-width: 720px) {
+  .commentContainer {
+    padding: 1px;
+  }
+
+  .right {
+    padding: 6px;
+  }
+}
+
+@media only screen and (max-width: 770px) {
+  .infoText,
+  .userLink {
+    font-size: 14px;
+  }
+
+  .bottom {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1px;
+  }
+}
