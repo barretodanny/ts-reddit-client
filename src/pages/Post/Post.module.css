@@ -1,0 +1,64 @@
+.container {
+  padding: 15px 75px;
+  max-width: 820px;
+  margin: auto;
+}
+
+.heading {
+  margin: 0;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.white {
+  color: white;
+}
+
+.mt45 {
+  margin-top: 45px;
+}
+
+.subLink {
+  text-decoration: none;
+  color: orange;
+}
+
+.subLink:hover {
+  text-decoration: underline;
+}
+
+@media only screen and (max-width: 920px) {
+  .heading {
+    font-size: 27px;
+  }
+}
+
+@media only screen and (max-width: 820px) {
+  .heading {
+    font-size: 22px;
+  }
+}
+
+@media only screen and (max-width: 720px) {
+  .container {
+    padding: 15px 15px;
+  }
+}
+
+@media only screen and (max-width: 580px) {
+  .heading {
+    font-size: 18px;
+  }
+
+  .container {
+    padding: 15px 5px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .heading {
+    font-size: 16px;
+  }
+}
