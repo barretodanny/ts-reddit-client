@@ -1,0 +1,35 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 5px;
+  background-color: rgb(31, 31, 32);
+  color: white;
+}
+
+.upvoteBtn:hover {
+  background-color: rgb(200, 241, 200);
+}
+
+.downvoteBtn:hover {
+  background-color: rgb(224, 145, 145);
+}
+
+.voteBtn {
+  cursor: pointer;
+}
+
+.upvoted {
+  background-color: rgb(127, 216, 127);
+}
+
+.downvoted {
+  background-color: rgb(238, 98, 98);
+}
+
+@media only screen and (max-width: 720px) {
+  .container {
+    padding: 1px;
+  }
+}
