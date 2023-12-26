@@ -240,3 +240,20 @@ export async function createCommentVote(commentId: string, value: number) {
   });
   return response.data;
 }
+
+export async function updateCommentVote(voteId: string, value: number) {
+  const body = {
+    value,
+  };
+  const response = await axios.put(`${ENDPOINT}/votes/${voteId}`, body, {
+    withCredentials: true,
+  });
+  return response.data;
+}
+
+export async function deleteCommentVote(voteId: string) {
+  const response = await axios.delete(`${ENDPOINT}/votes/${voteId}`, {
+    withCredentials: true,
+  });
+  return response;
+}
