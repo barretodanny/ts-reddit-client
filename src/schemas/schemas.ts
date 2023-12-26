@@ -34,3 +34,9 @@ export const createPostSchema = object({
   title: string().min(1, "Post title is required"),
   content: string().min(1, "Post content is required"),
 });
+
+// COMMENT SCHEMAS
+export const createCommentSchema = object({
+  content: string().min(1, "Comment content is required"),
+  parent: string().optional().or(literal("")),
+});
