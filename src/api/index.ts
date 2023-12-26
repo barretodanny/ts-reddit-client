@@ -166,6 +166,15 @@ export async function deleteComment(commentId: string) {
   return response;
 }
 
+export async function getPostComments(postId: string, searchParams: string) {
+  const response = await axios.get(
+    `${ENDPOINT}/comments?postId=${postId}${
+      searchParams && `&${searchParams.replace("?", "")}`
+    }`
+  );
+  return response;
+}
+
 // VOTES
 export async function getUserPostVote(postId: string) {
   const response = await axios.get(`${ENDPOINT}/votes?postId=${postId}`, {
