@@ -229,3 +229,14 @@ export async function getUserCommentVote(commentId: string) {
   });
   return response;
 }
+
+export async function createCommentVote(commentId: string, value: number) {
+  const body = {
+    comment: commentId,
+    value,
+  };
+  const response = await axios.post(`${ENDPOINT}/votes`, body, {
+    withCredentials: true,
+  });
+  return response.data;
+}
