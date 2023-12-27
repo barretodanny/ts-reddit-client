@@ -7,6 +7,7 @@ import {
   CreateUserInput,
   EditPostInput,
   EditSubredditInput,
+  EditUserInput,
 } from "../types/types";
 
 const ENDPOINT = "http://localhost:1337/api";
@@ -33,6 +34,20 @@ export const getUserByUsername = async (username: string) => {
   const response = await axios.get(`${ENDPOINT}/users/${username}?string=true`);
   return response.data;
 };
+
+export async function updateUser(userId: string, payload: EditUserInput) {
+  const response = await axios.put(`${ENDPOINT}/users/${userId}`, payload, {
+    withCredentials: true,
+  });
+  return response;
+}
+
+export async function deleteUser(userId: string) {
+  const response = await axios.delete(`${ENDPOINT}/users/${userId}`, {
+    withCredentials: true,
+  });
+  return response;
+}
 
 // SESSIONS
 export const createSession = async (loginData: CreateSessionInput) => {
