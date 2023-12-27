@@ -8,9 +8,11 @@ import {
   editSubredditSchema,
   createCommentSchema,
   editPostSchema,
+  editUserSchema,
 } from "../schemas/schemas";
 
 export type CreateUserInput = TypeOf<typeof createUserSchema>;
+export type EditUserInput = TypeOf<typeof editUserSchema>;
 export type CreateSessionInput = TypeOf<typeof createSessionSchema>;
 export type CreateSubredditInput = TypeOf<typeof createSubredditSchema>;
 export type EditSubredditInput = TypeOf<typeof editSubredditSchema>;

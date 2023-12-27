@@ -14,6 +14,19 @@ export const createUserSchema = object({
   path: ["passwordConfirmation"],
 });
 
+export const editUserSchema = object({
+  username: string().optional().or(literal("")),
+  password: string()
+    .min(6, "Password must be at least 6 characters")
+    .optional()
+    .or(literal("")),
+  passwordConfirmation: string().optional().or(literal("")),
+  email: string().email().optional().or(literal("")),
+}).refine((data) => data.password === data.passwordConfirmation, {
+  message: "Passwords do not match",
+  path: ["passwordConfirmation"],
+});
+
 // SESSION SCHEMAS
 export const createSessionSchema = object({
   email: string().min(1, "Email is required.").email("Invalid email."),
