@@ -67,6 +67,11 @@ export const getSubredditByName = async (name: string) => {
   return response.data;
 };
 
+export const getSubredditById = async (subredditId: string) => {
+  const response = await axios.get(`${ENDPOINT}/subreddits/${subredditId}`);
+  return response.data;
+};
+
 export const getSubredditCount = async (searchParams?: string) => {
   const response = await axios.head(
     `${ENDPOINT}/subreddits${searchParams ? `${searchParams}` : ""}`
@@ -206,6 +211,20 @@ export async function getCommentReplies(
   );
   return response;
 }
+
+export const getUserComments = async (userId: string, searchParams: string) => {
+  const response = await axios.get(
+    `${ENDPOINT}/comments?userId=${userId}${
+      searchParams && `&${searchParams.replace("?", "")}`
+    }`
+  );
+  return response;
+};
+
+export const getUserCommentCount = async (userId: string) => {
+  const response = await axios.head(`${ENDPOINT}/comments?userId=${userId}`);
+  return response;
+};
 
 // VOTES
 export async function getUserPostVote(postId: string) {
