@@ -5,6 +5,7 @@ import {
   CreateSessionInput,
   CreateSubredditInput,
   CreateUserInput,
+  EditPostInput,
   EditSubredditInput,
 } from "../types/types";
 
@@ -146,6 +147,13 @@ export const getPostById = async (postId: string) => {
   const response = await axios.get(`${ENDPOINT}/posts/${postId}`);
   return response;
 };
+
+export async function updatePost(postId: string, payload: EditPostInput) {
+  const response = await axios.put(`${ENDPOINT}/posts/${postId}`, payload, {
+    withCredentials: true,
+  });
+  return response;
+}
 
 // COMMENTS
 export async function createComment(
