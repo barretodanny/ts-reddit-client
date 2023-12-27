@@ -240,6 +240,23 @@ export const getUserPostCount = async (userId: string) => {
   return response;
 };
 
+export const getUserSubreddits = async (
+  userId: string,
+  searchParams: string
+) => {
+  const response = await axios.get(
+    `${ENDPOINT}/subreddits?userId=${userId}${
+      searchParams && `&${searchParams.replace("?", "")}`
+    }`
+  );
+  return response;
+};
+
+export const getUserSubredditCount = async (userId: string) => {
+  const response = await axios.head(`${ENDPOINT}/subreddits?userId=${userId}`);
+  return response;
+};
+
 // VOTES
 export async function getUserPostVote(postId: string) {
   const response = await axios.get(`${ENDPOINT}/votes?postId=${postId}`, {
