@@ -1,0 +1,73 @@
+.container {
+  padding: 15px 75px;
+}
+
+.heading {
+  margin: 0;
+  text-align: center;
+  color: white;
+}
+
+.subHeading {
+  margin-top: 15px;
+  color: gainsboro;
+  text-align: center;
+}
+
+.notFound {
+  margin-top: 25px;
+}
+
+.name {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: rgb(191, 221, 248);
+}
+
+@media only screen and (max-width: 920px) {
+  .heading {
+    font-size: 27px;
+  }
+
+  .subHeading {
+    font-size: 18px;
+  }
+}
+
+@media only screen and (max-width: 820px) {
+  .heading {
+    font-size: 22px;
+  }
+
+  .subHeading {
+    font-size: 16px;
+  }
+}
+
+@media only screen and (max-width: 720px) {
+  .container {
+    padding: 15px 15px;
+  }
+}
+
+@media only screen and (max-width: 580px) {
+  .heading {
+    font-size: 18px;
+  }
+
+  .subHeading {
+    font-size: 15px;
+  }
+
+  .container {
+    padding: 15px 5px;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .heading {
+    font-size: 16px;
+  }
+}
