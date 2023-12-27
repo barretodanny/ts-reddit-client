@@ -35,6 +35,11 @@ export const createPostSchema = object({
   content: string().min(1, "Post content is required"),
 });
 
+export const editPostSchema = object({
+  title: string().optional().or(literal("")),
+  content: string().optional().or(literal("")),
+});
+
 // COMMENT SCHEMAS
 export const createCommentSchema = object({
   content: string().min(1, "Comment content is required"),
