@@ -143,6 +143,18 @@ export function extractSubredditName(url: string) {
   }
 }
 
+export function extractUsername(url: string) {
+  // regex pattern
+  const pattern = /\/u\/([^\/]+)/;
+  const match = url.match(pattern);
+
+  if (match && match[1]) {
+    return match[1];
+  } else {
+    return "";
+  }
+}
+
 export function extractPostId(url: string) {
   // regex pattern
   const pattern = /\/r\/[^/]+\/post\/([\w-]+)/;
