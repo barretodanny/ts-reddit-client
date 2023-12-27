@@ -226,6 +226,20 @@ export const getUserCommentCount = async (userId: string) => {
   return response;
 };
 
+export const getUserPosts = async (userId: string, searchParams: string) => {
+  const response = await axios.get(
+    `${ENDPOINT}/posts?userId=${userId}${
+      searchParams && `&${searchParams.replace("?", "")}`
+    }`
+  );
+  return response;
+};
+
+export const getUserPostCount = async (userId: string) => {
+  const response = await axios.head(`${ENDPOINT}/posts?userId=${userId}`);
+  return response;
+};
+
 // VOTES
 export async function getUserPostVote(postId: string) {
   const response = await axios.get(`${ENDPOINT}/votes?postId=${postId}`, {
