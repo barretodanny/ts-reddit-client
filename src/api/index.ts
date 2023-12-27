@@ -155,6 +155,13 @@ export async function updatePost(postId: string, payload: EditPostInput) {
   return response;
 }
 
+export async function deletePost(postId: string) {
+  const response = await axios.delete(`${ENDPOINT}/posts/${postId}`, {
+    withCredentials: true,
+  });
+  return response;
+}
+
 // COMMENTS
 export async function createComment(
   postId: string,
