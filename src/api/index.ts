@@ -29,6 +29,11 @@ export const createUser = async (userData: CreateUserInput) => {
   return response;
 };
 
+export const getUserByUsername = async (username: string) => {
+  const response = await axios.get(`${ENDPOINT}/users/${username}?string=true`);
+  return response.data;
+};
+
 // SESSIONS
 export const createSession = async (loginData: CreateSessionInput) => {
   const response = await axios.post(`${ENDPOINT}/sessions`, loginData, {
