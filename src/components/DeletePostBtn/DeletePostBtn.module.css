@@ -1,0 +1,27 @@
+.deleteBtn {
+  background-color: red;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  color: white;
+  min-width: 125px;
+  padding: 16px 16px;
+  border-radius: 25px;
+  text-align: center;
+}
+
+.deleteBtn:hover {
+  background-color: rgb(255, 39, 39);
+}
+
+@media only screen and (max-width: 580px) {
+  .btnContainer {
+    gap: 5px;
+    justify-content: center;
+  }
+
+  .deleteBtn {
+    min-width: 95px;
+    padding: 12px 6px;
+  }
+}
