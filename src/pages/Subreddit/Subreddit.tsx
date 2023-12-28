@@ -1,27 +1,33 @@
 import { useEffect, useState } from "react";
-import { Post, Subreddit as SubredditType, User } from "../../types/types";
 import { useLocation } from "react-router-dom";
+import { AppDispatch, RootState } from "../../redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { getAuthUser, reset } from "../../redux/slices/AuthSlice";
+import { Post, Subreddit as SubredditType } from "../../types/types";
 import { extractSubredditName } from "../../utils/utils";
 import {
-  getLoggedInUser,
   getSubredditByName,
   getSubredditPostCount,
   getSubredditPosts,
 } from "../../api";
 
-import styles from "./Subreddit.module.css";
 import SortingOptions from "../../components/SortingOptions/SortingOptions";
 import Pagination from "../../components/Pagination/Pagination";
 import SecondaryOptions from "../../components/SecondaryOptions/SecondaryOptions";
 import PostList from "../../components/PostList/PostList";
 
+import styles from "./Subreddit.module.css";
+
 function Subreddit() {
   const [subreddit, setSubreddit] = useState<SubredditType>();
+  const [subredditFetched, setSubredditFetched] = useState(false);
   const [posts, setPosts] = useState<Post[]>([]);
+  const [postsFetched, setPostsFetched] = useState(false);
   const [postCount, setPostCount] = useState(0);
-  const [loggedInUser, setLoggedInUser] = useState<User>();
-  const [showContent, setShowContent] = useState(false);
+  const [postCountFetched, setPostCountFetched] = useState(false);
 
+  const dispatch: AppDispatch = useDispatch();
+  const { loggedInUser } = useSelector((state: RootState) => state.auth);
   const location = useLocation();
   const url = location.pathname;
   const subredditName = extractSubredditName(url);
@@ -29,6 +35,7 @@ function Subreddit() {
 
   useEffect(() => {
     document.title = subredditName ? subredditName : "Not found";
+    dispatch(getAuthUser()).then(() => dispatch(reset()));
 
     const fetchSubreddit = async () => {
       try {
@@ -36,6 +43,8 @@ function Subreddit() {
         setSubreddit(response);
       } catch (error: any) {
         // error fetching subreddit
+      } finally {
+        setSubredditFetched(true);
       }
     };
 
@@ -43,12 +52,18 @@ function Subreddit() {
   }, []);
 
   useEffect(() => {
+    if (!subredditFetched) {
+      return;
+    }
+
     const fetchPosts = async () => {
       try {
         const response = await getSubredditPosts(subreddit!._id, searchParams);
         setPosts(response.data);
       } catch (error: any) {
         // error fetching posts
+      } finally {
+        setPostsFetched(true);
       }
     };
 
@@ -62,29 +77,16 @@ function Subreddit() {
         setPostCount(count);
       } catch (error: any) {
         // error fetching posts count
+      } finally {
+        setPostCountFetched(true);
       }
-    };
-
-    const fetchLoggedInUser = async () => {
-      try {
-        const response = await getLoggedInUser();
-
-        // user is logged in
-        if (response && response.status === 200) {
-          setLoggedInUser(response.data);
-        }
-      } catch (error) {
-        // error fetching logged in user
-      }
-      setShowContent(true);
     };
 
     fetchPosts();
     fetchPostCount();
-    fetchLoggedInUser();
-  }, [searchParams, subreddit]);
+  }, [searchParams, subreddit, subredditFetched]);
 
-  if (!showContent) {
+  if (!subredditFetched || !postsFetched || !postCountFetched) {
     return <></>;
   }
 
@@ -107,7 +109,9 @@ function Subreddit() {
       {posts.length > 0 ? (
         <PostList posts={posts} loggedInUser={loggedInUser} />
       ) : (
-        <div>No posts found</div>
+        <h2 className={`${styles.subHeading} ${styles.notFound}`}>
+          No posts found
+        </h2>
       )}
     </div>
   );
