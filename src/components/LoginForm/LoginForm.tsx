@@ -1,11 +1,11 @@
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useNavigate } from "react-router-dom";
+import { AppDispatch, RootState } from "../../redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../../redux/slices/AuthSlice";
 
 import { createSessionSchema } from "../../schemas/schemas";
 import { CreateSessionInput } from "../../types/types";
-import { createSession } from "../../api";
 
 import { AiOutlineMail } from "react-icons/ai";
 import { RiLockPasswordLine } from "react-icons/ri";
@@ -13,7 +13,6 @@ import { RiLockPasswordLine } from "react-icons/ri";
 import styles from "./LoginForm.module.css";
 
 function LoginForm() {
-  const [loginError, setLoginError] = useState("");
   const {
     register,
     formState: { errors },
@@ -22,30 +21,18 @@ function LoginForm() {
     resolver: zodResolver(createSessionSchema),
   });
 
-  const navigate = useNavigate();
+  const dispatch: AppDispatch = useDispatch();
+  const state = useSelector((state: RootState) => state.auth);
+  const { isError, message } = state;
 
   async function onSubmit(values: CreateSessionInput) {
-    try {
-      // create session
-      await createSession(values);
-
-      // login success, cookies now set on browser with access/refresh tokens
-      setLoginError("");
-      // refresh page, redirects to home
-      navigate(0);
-
-      // failed, set login error
-    } catch (error: any) {
-      Array.isArray(error.response.data)
-        ? setLoginError(error.response.data[0].message)
-        : setLoginError(error.response.data.message);
-    }
+    await dispatch(login(values));
   }
 
   return (
     <div className={styles.container}>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.formContainer}>
-        <p className={styles.errorMessage}>{loginError}</p>
+        <p className={styles.errorMessage}>{isError && message}</p>
 
         <div className={styles.formElement}>
           <label htmlFor="email" className={styles.fieldText}>
