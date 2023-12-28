@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { Post, User } from "../../types/types";
-import { getLoggedInUser, getPosts, getPostCount } from "../../api";
+import { AppDispatch, RootState } from "../../redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { getAuthUser, reset } from "../../redux/slices/AuthSlice";
+import { Post } from "../../types/types";
+import { getPosts, getPostCount } from "../../api";
 
 import SortingOptions from "../../components/SortingOptions/SortingOptions";
 import Pagination from "../../components/Pagination/Pagination";
@@ -11,22 +14,29 @@ import styles from "./Home.module.css";
 
 function Home() {
   const [posts, setPosts] = useState<Post[]>([]);
+  const [postsFetched, setPostsFetched] = useState(false);
   const [postCount, setPostCount] = useState(0);
-  const [loggedInUser, setLoggedInUser] = useState<User>();
-  const [showContent, setShowContent] = useState(false);
+  const [postCountFetched, setPostCountFetched] = useState(false);
 
+  const dispatch: AppDispatch = useDispatch();
+  const { loggedInUser } = useSelector((state: RootState) => state.auth);
   const location = useLocation();
   const searchParams = location.search;
 
   useEffect(() => {
     document.title = "Reddit - Home";
+    dispatch(getAuthUser()).then(() => dispatch(reset()));
+  }, []);
 
+  useEffect(() => {
     const fetchPosts = async () => {
       try {
         const response = await getPosts(searchParams);
         setPosts(response.data);
       } catch (error: any) {
         // error fetching posts
+      } finally {
+        setPostsFetched(true);
       }
     };
 
@@ -37,29 +47,16 @@ function Home() {
         setPostCount(count);
       } catch (error: any) {
         // error fetching posts count
-      }
-      setShowContent(true);
-    };
-
-    const fetchLoggedInUser = async () => {
-      try {
-        const response = await getLoggedInUser();
-
-        // user is logged in
-        if (response && response.status === 200) {
-          setLoggedInUser(response.data);
-        }
-      } catch (error) {
-        // error fetching logged in user
+      } finally {
+        setPostCountFetched(true);
       }
     };
 
     fetchPosts();
     fetchPostCount();
-    fetchLoggedInUser();
   }, [searchParams]);
 
-  if (!showContent) {
+  if (!postsFetched || !postCountFetched) {
     return <></>;
   }
 
