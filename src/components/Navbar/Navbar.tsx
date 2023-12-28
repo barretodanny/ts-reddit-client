@@ -16,7 +16,7 @@ function Navbar() {
   );
 
   if (isLoading) {
-    return <></>;
+    return <div className={styles.empty}></div>;
   }
 
   return (
