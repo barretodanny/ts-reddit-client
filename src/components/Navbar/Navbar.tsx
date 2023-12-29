@@ -1,5 +1,7 @@
-import { useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../redux/store";
+import { getAuthUser } from "../../redux/slices/AuthSlice";
 import { Link } from "react-router-dom";
 
 import { AiOutlineMenu } from "react-icons/ai";
@@ -11,11 +13,16 @@ import LogoutBtn from "../LogoutBtn/LogoutBtn";
 import styles from "./Navbar.module.css";
 
 function Navbar() {
-  const { loggedInUser, isLoading } = useSelector(
+  const dispatch: AppDispatch = useDispatch();
+  const { loggedInUser, authFetched } = useSelector(
     (state: RootState) => state.auth
   );
 
-  if (isLoading) {
+  useEffect(() => {
+    dispatch(getAuthUser());
+  }, []);
+
+  if (!authFetched) {
     return <div className={styles.empty}></div>;
   }
 
