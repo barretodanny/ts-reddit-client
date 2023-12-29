@@ -4,18 +4,18 @@ import { createSession, getLoggedInUser } from "../../api";
 
 export interface AuthState {
   loggedInUser: User | undefined;
-  isError: boolean;
-  isSuccess: boolean;
-  isLoading: boolean;
-  message: "";
+  authFetched: boolean;
+  loginSuccess: boolean;
+  loginError: boolean;
+  loginErrorMessage: "";
 }
 
 const initialState: AuthState = {
   loggedInUser: undefined,
-  isError: false,
-  isSuccess: false,
-  isLoading: false,
-  message: "",
+  authFetched: false,
+  loginSuccess: false,
+  loginError: false,
+  loginErrorMessage: "",
 };
 
 // Login user
@@ -49,31 +49,35 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     reset: (state) => {
-      state.isError = false;
-      state.isSuccess = false;
-      state.isLoading = false;
-      state.message = "";
+      state.authFetched = false;
+      state.loginError = false;
+      state.loginSuccess = false;
+      state.loginErrorMessage = "";
     },
   },
   extraReducers: (builder) => {
     builder
+      .addCase(login.pending, (state) => {
+        state.loginError = false;
+        state.loginErrorMessage = "";
+      })
       .addCase(login.fulfilled, (state, action: any) => {
+        state.loginSuccess = true;
         state.loggedInUser = action.payload;
       })
       .addCase(login.rejected, (state, action: any) => {
-        state.isError = true;
-        state.message = action.payload;
+        state.loginError = true;
+        state.loginErrorMessage = action.payload;
       })
       .addCase(getAuthUser.pending, (state) => {
-        state.isLoading = true;
-        state.isSuccess = false;
-        state.isError = false;
+        state.authFetched = false;
       })
       .addCase(getAuthUser.fulfilled, (state, action: any) => {
-        state.isLoading = false;
-        state.isSuccess = true;
-        state.isError = false;
+        state.authFetched = true;
         state.loggedInUser = action.payload;
+      })
+      .addCase(getAuthUser.rejected, (state) => {
+        state.authFetched = true;
       });
   },
 });
