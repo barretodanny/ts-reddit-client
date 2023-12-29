@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { AppDispatch, RootState } from "../../redux/store";
-import { useDispatch, useSelector } from "react-redux";
-import { getAuthUser, reset } from "../../redux/slices/AuthSlice";
+import { RootState } from "../../redux/store";
+import { useSelector } from "react-redux";
 import { Post, Subreddit as SubredditType } from "../../types/types";
 import { extractSubredditName } from "../../utils/utils";
 import {
@@ -26,8 +25,9 @@ function Subreddit() {
   const [postCount, setPostCount] = useState(0);
   const [postCountFetched, setPostCountFetched] = useState(false);
 
-  const dispatch: AppDispatch = useDispatch();
-  const { loggedInUser } = useSelector((state: RootState) => state.auth);
+  const { loggedInUser, authFetched } = useSelector(
+    (state: RootState) => state.auth
+  );
   const location = useLocation();
   const url = location.pathname;
   const subredditName = extractSubredditName(url);
@@ -35,8 +35,6 @@ function Subreddit() {
 
   useEffect(() => {
     document.title = subredditName ? subredditName : "Not found";
-    dispatch(getAuthUser()).then(() => dispatch(reset()));
-
     const fetchSubreddit = async () => {
       try {
         const response = await getSubredditByName(subredditName);
@@ -86,7 +84,7 @@ function Subreddit() {
     fetchPostCount();
   }, [searchParams, subreddit, subredditFetched]);
 
-  if (!subredditFetched || !postsFetched || !postCountFetched) {
+  if (!subredditFetched || !postsFetched || !postCountFetched || !authFetched) {
     return <></>;
   }
 

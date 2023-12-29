@@ -1,33 +1,28 @@
 import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { AppDispatch, RootState } from "../../redux/store";
-import { useDispatch, useSelector } from "react-redux";
-import { getAuthUser, reset } from "../../redux/slices/AuthSlice";
+import { RootState } from "../../redux/store";
+import { useSelector } from "react-redux";
 import RegisterForm from "../../components/RegisterForm/RegisterForm";
 
 import styles from "./Register.module.css";
 
 function Register() {
   const navigate = useNavigate();
-  const dispatch: AppDispatch = useDispatch();
-  const { loggedInUser, isSuccess, isLoading } = useSelector(
+  const { loggedInUser, authFetched } = useSelector(
     (state: RootState) => state.auth
   );
 
   useEffect(() => {
     document.title = "Sign Up";
-
-    dispatch(getAuthUser());
   }, []);
 
   useEffect(() => {
     if (loggedInUser) {
       navigate("/");
-      dispatch(reset());
     }
   }, [loggedInUser]);
 
-  if (loggedInUser || isLoading || !isSuccess) {
+  if (loggedInUser || !authFetched) {
     return <></>;
   }
 

@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { AppDispatch, RootState } from "../../redux/store";
-import { useDispatch, useSelector } from "react-redux";
-import { getAuthUser, reset } from "../../redux/slices/AuthSlice";
+import { RootState } from "../../redux/store";
+import { useSelector } from "react-redux";
 import { Post } from "../../types/types";
 import { getPosts, getPostCount } from "../../api";
 
@@ -18,14 +17,14 @@ function Home() {
   const [postCount, setPostCount] = useState(0);
   const [postCountFetched, setPostCountFetched] = useState(false);
 
-  const dispatch: AppDispatch = useDispatch();
-  const { loggedInUser } = useSelector((state: RootState) => state.auth);
+  const { loggedInUser, authFetched } = useSelector(
+    (state: RootState) => state.auth
+  );
   const location = useLocation();
   const searchParams = location.search;
 
   useEffect(() => {
     document.title = "Reddit - Home";
-    dispatch(getAuthUser()).then(() => dispatch(reset()));
   }, []);
 
   useEffect(() => {
@@ -56,7 +55,7 @@ function Home() {
     fetchPostCount();
   }, [searchParams]);
 
-  if (!postsFetched || !postCountFetched) {
+  if (!postsFetched || !postCountFetched || !authFetched) {
     return <></>;
   }
 

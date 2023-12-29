@@ -23,7 +23,7 @@ function LoginForm() {
 
   const dispatch: AppDispatch = useDispatch();
   const state = useSelector((state: RootState) => state.auth);
-  const { isError, message } = state;
+  const { loginError, loginErrorMessage } = state;
 
   async function onSubmit(values: CreateSessionInput) {
     await dispatch(login(values));
@@ -32,7 +32,7 @@ function LoginForm() {
   return (
     <div className={styles.container}>
       <form onSubmit={handleSubmit(onSubmit)} className={styles.formContainer}>
-        <p className={styles.errorMessage}>{isError && message}</p>
+        <p className={styles.errorMessage}>{loginError && loginErrorMessage}</p>
 
         <div className={styles.formElement}>
           <label htmlFor="email" className={styles.fieldText}>

@@ -1,33 +1,28 @@
 import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../redux/store";
-import { getAuthUser, reset } from "../../redux/slices/AuthSlice";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 import LoginForm from "../../components/LoginForm/LoginForm";
 
 import styles from "./Login.module.css";
 
 function Login() {
   const navigate = useNavigate();
-  const dispatch: AppDispatch = useDispatch();
-  const { loggedInUser, isSuccess, isLoading } = useSelector(
+  const { loggedInUser, authFetched } = useSelector(
     (state: RootState) => state.auth
   );
 
   useEffect(() => {
     document.title = "Sign In";
-
-    dispatch(getAuthUser());
   }, []);
 
   useEffect(() => {
     if (loggedInUser) {
       navigate("/");
-      dispatch(reset());
     }
   }, [loggedInUser]);
 
-  if (loggedInUser || isLoading || !isSuccess) {
+  if (loggedInUser || !authFetched) {
     return <></>;
   }
 
