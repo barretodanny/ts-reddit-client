@@ -1,52 +1,52 @@
 import { useEffect, useState } from "react";
-import { Subreddit, User } from "../../types/types";
 import { Link, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
+import { Subreddit } from "../../types/types";
 import { extractSubredditName } from "../../utils/utils";
-import { getLoggedInUser, getSubredditByName } from "../../api";
+import { getSubredditByName } from "../../api";
+
 import EditSubredditForm from "../../components/EditSubredditForm/EditSubredditForm";
 
 import styles from "./EditSubreddit.module.css";
 
 function EditSubreddit() {
   const [subreddit, setSubreddit] = useState<Subreddit>();
-  const [loggedInUser, setLoggedInUser] = useState<User>();
-  const [showContent, setShowContent] = useState(false);
+  const [subredditFetched, setSubredditFetched] = useState(false);
 
+  const { loggedInUser, authFetched } = useSelector(
+    (state: RootState) => state.auth
+  );
   const location = useLocation();
   const url = location.pathname;
   const subredditName = extractSubredditName(url);
 
   useEffect(() => {
-    document.title = `Edit Subreddit - ${subredditName}`;
-
     const fetchSubreddit = async () => {
       try {
         const response = await getSubredditByName(subredditName);
         setSubreddit(response);
       } catch (error: any) {
         // error fetching subreddit
-      }
-      setShowContent(true);
-    };
-
-    const fetchLoggedInUser = async () => {
-      try {
-        const response = await getLoggedInUser();
-
-        // user is logged in
-        if (response && response.status === 200) {
-          setLoggedInUser(response.data);
-        }
-      } catch (error) {
-        // error fetching logged in user
+      } finally {
+        setSubredditFetched(true);
       }
     };
 
     fetchSubreddit();
-    fetchLoggedInUser();
   }, []);
 
-  if (!showContent) {
+  useEffect(() => {
+    if (!subredditFetched) {
+      return;
+    }
+
+    document.title = subreddit
+      ? `${subreddit.name} - Create Post`
+      : "Subreddit Not Found";
+  }, [subreddit, subredditFetched]);
+
+  if (!authFetched || !subredditFetched) {
     return <></>;
   }
 

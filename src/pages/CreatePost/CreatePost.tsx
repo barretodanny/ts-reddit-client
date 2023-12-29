@@ -44,7 +44,7 @@ function CreatePost() {
     document.title = subreddit
       ? `${subreddit.name} - Create Post`
       : "Subreddit Not Found";
-  }, [subreddit]);
+  }, [subreddit, subredditFetched]);
 
   if (!authFetched || !subredditFetched) {
     return <></>;
