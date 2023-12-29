@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
-import { getAuthUser } from "../../redux/slices/AuthSlice";
+import { getAuthUser, reset } from "../../redux/slices/AuthSlice";
 import { Link } from "react-router-dom";
 
 import { AiOutlineMenu } from "react-icons/ai";
@@ -20,6 +20,10 @@ function Navbar() {
 
   useEffect(() => {
     dispatch(getAuthUser());
+
+    return () => {
+      dispatch(reset());
+    };
   }, []);
 
   if (!authFetched) {

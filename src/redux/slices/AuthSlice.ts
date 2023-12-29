@@ -49,6 +49,7 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     reset: (state) => {
+      state.loggedInUser = undefined;
       state.authFetched = false;
       state.loginError = false;
       state.loginSuccess = false;
