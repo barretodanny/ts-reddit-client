@@ -65,7 +65,10 @@ export const deleteSession = async () => {
 };
 
 export const getLoggedInUser = async () => {
-  const response = await axios.get(`${ENDPOINT}/me`, { withCredentials: true });
+  const response = await axios.get(`${ENDPOINT}/me`, {
+    withCredentials: true,
+    params: { timestamp: Date.now() },
+  });
   return response;
 };
 
