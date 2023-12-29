@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { CreateSessionInput, User } from "../../types/types";
-import { createSession, getLoggedInUser } from "../../api";
+import { createSession, deleteSession, getLoggedInUser } from "../../api";
 
 export interface AuthState {
   loggedInUser: User | undefined;
@@ -34,6 +34,13 @@ export const login = createAsyncThunk(
     }
   }
 );
+
+// Logout user
+export const logout = createAsyncThunk("auth/logout", async () => {
+  try {
+    return await deleteSession();
+  } catch (error: any) {}
+});
 
 // Get Auth User
 export const getAuthUser = createAsyncThunk("auth/getAuthUser", async () => {
@@ -69,6 +76,9 @@ export const authSlice = createSlice({
       .addCase(login.rejected, (state, action: any) => {
         state.loginError = true;
         state.loginErrorMessage = action.payload;
+      })
+      .addCase(logout.fulfilled, (state) => {
+        state.loggedInUser = undefined;
       })
       .addCase(getAuthUser.pending, (state) => {
         state.authFetched = false;
