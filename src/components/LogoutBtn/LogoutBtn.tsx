@@ -1,18 +1,14 @@
-import { useNavigate } from "react-router-dom";
-import { deleteSession } from "../../api";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "../../redux/store";
+import { logout } from "../../redux/slices/AuthSlice";
 
 import styles from "./LogoutBtn.module.css";
 
 function LogoutBtn() {
-  const navigate = useNavigate();
+  const dispatch: AppDispatch = useDispatch();
 
   async function handleLogout() {
-    const response = await deleteSession();
-
-    // user is logged out
-    if (response.status === 200) {
-      navigate(0);
-    }
+    dispatch(logout());
   }
 
   return (
