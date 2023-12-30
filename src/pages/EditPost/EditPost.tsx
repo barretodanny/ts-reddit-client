@@ -1,18 +1,24 @@
 import { useEffect, useState } from "react";
-import { Post, Subreddit, User } from "../../types/types";
 import { Link, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
+import { Post, Subreddit } from "../../types/types";
 import { extractPostId, extractSubredditName } from "../../utils/utils";
-import { getLoggedInUser, getPostById, getSubredditByName } from "../../api";
+import { getPostById, getSubredditByName } from "../../api";
 
-import styles from "./EditPost.module.css";
 import EditPostForm from "../../components/EditPostForm/EditPostForm";
 
-function EditPost() {
-  const [loggedInUser, setLoggedInUser] = useState<User>();
-  const [subreddit, setSubreddit] = useState<Subreddit>();
-  const [post, setPost] = useState<Post>();
-  const [showContent, setShowContent] = useState(false);
+import styles from "./EditPost.module.css";
 
+function EditPost() {
+  const [subreddit, setSubreddit] = useState<Subreddit>();
+  const [subredditFetched, setSubredditFetched] = useState(false);
+  const [post, setPost] = useState<Post>();
+  const [postFetched, setPostFetched] = useState(false);
+
+  const { loggedInUser, authFetched } = useSelector(
+    (state: RootState) => state.auth
+  );
   const location = useLocation();
   const url = location.pathname;
   const postId = extractPostId(url);
@@ -25,6 +31,8 @@ function EditPost() {
         setSubreddit(response);
       } catch (error: any) {
         // error fetching subreddit
+      } finally {
+        setSubredditFetched(true);
       }
     };
 
@@ -34,34 +42,40 @@ function EditPost() {
         setPost(response.data);
       } catch (error: any) {
         // error fetching post
+      } finally {
+        setPostFetched(true);
       }
-    };
-
-    const fetchLoggedInUser = async () => {
-      try {
-        const response = await getLoggedInUser();
-
-        // user is logged in
-        if (response && response.status === 200) {
-          setLoggedInUser(response.data);
-        }
-      } catch (error) {
-        // error fetching logged in user
-      }
-      setShowContent(true);
     };
 
     fetchSubreddit();
     fetchPost();
-    fetchLoggedInUser();
   }, []);
 
   useEffect(() => {
-    document.title = post ? `Edit Post - ${post.title}` : "Edit Post";
-  }, [post]);
+    if (!subredditFetched || !postFetched) {
+      return;
+    }
 
-  if (!showContent) {
+    document.title = subreddit
+      ? post
+        ? `Edit Post - ${post.title}`
+        : "Post Not Found"
+      : "Subreddit Not Found";
+    document.title = post ? `Edit Post - ${post.title}` : "Edit Post";
+  }, [post, subreddit, postFetched, subredditFetched]);
+
+  if (!authFetched || !subredditFetched || !postFetched) {
     return <></>;
+  }
+
+  if (!subreddit) {
+    return (
+      <div className={styles.container}>
+        <h1 className={`${styles.heading} ${styles.white} ${styles.center}`}>
+          Subreddit does not exist
+        </h1>
+      </div>
+    );
   }
 
   if (!post) {
@@ -72,10 +86,6 @@ function EditPost() {
         </h1>
       </div>
     );
-  }
-
-  if (!subreddit) {
-    return <h2 className={styles.nfHeading}>Subreddit not found</h2>;
   }
 
   return (
