@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { Post, Subreddit, User } from "../../types/types";
 import { Link, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
+import { Post, Subreddit } from "../../types/types";
 import { extractSubredditName, getSearchQueryParam } from "../../utils/utils";
 import {
-  getLoggedInUser,
   getSubredditByName,
   getSubredditPostCount,
   getSubredditPosts,
@@ -16,12 +17,16 @@ import PostList from "../../components/PostList/PostList";
 import styles from "./SearchSubreddit.module.css";
 
 function SearchSubreddit() {
-  const [loggedInUser, setLoggedInUser] = useState<User>();
   const [subreddit, setSubreddit] = useState<Subreddit>();
+  const [subredditFetched, setSubredditFetched] = useState(false);
   const [posts, setPosts] = useState<Post[]>([]);
+  const [postsFetched, setPostsFetched] = useState(false);
   const [postCount, setPostCount] = useState(0);
-  const [showContent, setShowContent] = useState(false);
+  const [postCountFetched, setPostCountFetched] = useState(false);
 
+  const { loggedInUser, authFetched } = useSelector(
+    (state: RootState) => state.auth
+  );
   const location = useLocation();
   const searchParams = location.search;
   const url = location.pathname;
@@ -35,6 +40,8 @@ function SearchSubreddit() {
         setSubreddit(response);
       } catch (error: any) {
         // error fetching subreddit
+      } finally {
+        setSubredditFetched(true);
       }
     };
 
@@ -42,9 +49,15 @@ function SearchSubreddit() {
   }, []);
 
   useEffect(() => {
-    document.title = search
-      ? `${subredditName}: Search result - ${search}`
-      : `${subredditName}: Search`;
+    if (!subredditFetched) {
+      return;
+    }
+
+    document.title = subreddit
+      ? search
+        ? `${subreddit.name}: Search result - ${search}`
+        : `${subreddit.name}: Search`
+      : "Subreddit Not Found";
 
     const fetchPosts = async () => {
       try {
@@ -52,6 +65,8 @@ function SearchSubreddit() {
         setPosts(response.data);
       } catch (error: any) {
         // error fetching posts
+      } finally {
+        setPostsFetched(true);
       }
     };
 
@@ -65,29 +80,16 @@ function SearchSubreddit() {
         setPostCount(count);
       } catch (error: any) {
         // error fetching post count
+      } finally {
+        setPostCountFetched(true);
       }
-    };
-
-    const fetchLoggedInUser = async () => {
-      try {
-        const response = await getLoggedInUser();
-
-        // user is logged in
-        if (response && response.status === 200) {
-          setLoggedInUser(response.data);
-        }
-      } catch (error) {
-        // error fetching logged in user
-      }
-      setShowContent(true);
     };
 
     fetchPosts();
     fetchPostCount();
-    fetchLoggedInUser();
-  }, [searchParams, subreddit]);
+  }, [searchParams, subreddit, subredditFetched]);
 
-  if (!showContent) {
+  if (!authFetched || !subredditFetched || !postsFetched || !postCountFetched) {
     return <></>;
   }
 
