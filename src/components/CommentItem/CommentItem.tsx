@@ -121,7 +121,11 @@ function CommentItem({
       }}
       className={styles.container}
     >
-      <div className={styles.commentContainer}>
+      <div
+        className={`${styles.commentContainer} ${
+          depth % 2 === 0 && `${styles.even}`
+        }`}
+      >
         <CommentVote comment={comment} vote={vote} />
 
         <div className={styles.right}>

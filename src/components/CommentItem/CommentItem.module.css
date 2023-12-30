@@ -79,6 +79,10 @@
   gap: 10px;
 }
 
+.even {
+  background-color: rgb(36, 36, 37);
+}
+
 @media only screen and (max-width: 720px) {
   .commentContainer {
     padding: 1px;
