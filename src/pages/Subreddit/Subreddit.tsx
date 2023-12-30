@@ -34,7 +34,6 @@ function Subreddit() {
   const searchParams = location.search;
 
   useEffect(() => {
-    document.title = subredditName ? subredditName : "Not found";
     const fetchSubreddit = async () => {
       try {
         const response = await getSubredditByName(subredditName);
@@ -53,6 +52,8 @@ function Subreddit() {
     if (!subredditFetched) {
       return;
     }
+
+    document.title = subreddit ? `${subreddit.name}` : "Subreddit Not Found";
 
     const fetchPosts = async () => {
       try {
