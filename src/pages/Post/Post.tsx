@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
-import { Post as PostType, Subreddit, User } from "../../types/types";
 import { Link, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
+import { Post as PostType, Subreddit } from "../../types/types";
 import { extractPostId, extractSubredditName } from "../../utils/utils";
-import { getLoggedInUser, getPostById, getSubredditByName } from "../../api";
+import { getPostById, getSubredditByName } from "../../api";
 
 import SortingOptions from "../../components/SortingOptions/SortingOptions";
 import PostComponent from "../../components/Post/Post";
@@ -12,9 +14,13 @@ import styles from "./Post.module.css";
 
 function Post() {
   const [subreddit, setSubreddit] = useState<Subreddit>();
+  const [subredditFetched, setSubredditFetched] = useState(false);
   const [post, setPost] = useState<PostType>();
-  const [loggedInUser, setLoggedInUser] = useState<User>();
+  const [postFetched, setPostFetched] = useState(false);
 
+  const { loggedInUser, authFetched } = useSelector(
+    (state: RootState) => state.auth
+  );
   const location = useLocation();
   const url = location.pathname;
   const searchParams = location.search;
@@ -28,6 +34,8 @@ function Post() {
         setSubreddit(response);
       } catch (error: any) {
         // error fetching subreddit
+      } finally {
+        setSubredditFetched(true);
       }
     };
 
@@ -37,30 +45,30 @@ function Post() {
         setPost(response.data);
       } catch (error: any) {
         // error fetching post
-      }
-    };
-
-    const fetchLoggedInUser = async () => {
-      try {
-        const response = await getLoggedInUser();
-        setLoggedInUser(response.data);
-      } catch (error: any) {
-        // error fetching logged in user
+      } finally {
+        setPostFetched(true);
       }
     };
 
     fetchSubreddit();
     fetchPost();
-    fetchLoggedInUser();
   }, []);
 
   useEffect(() => {
-    if (subreddit) {
-      document.title = post
-        ? `${subreddit.name} - ${post.title}`
-        : "Post not found";
+    if (!subredditFetched) {
+      return;
     }
-  }, [post]);
+
+    document.title = subreddit
+      ? post
+        ? `${subreddit.name} - ${post.title}`
+        : "Post Not Found"
+      : "Subreddit Not Found";
+  }, [post, subreddit, subredditFetched]);
+
+  if (!authFetched || !subredditFetched || !postFetched) {
+    return <></>;
+  }
 
   if (!subreddit) {
     return (

@@ -15,6 +15,7 @@ interface CommentsWrapperProps {
 
 function CommentsWrapper({ post, loggedInUser }: CommentsWrapperProps) {
   const [comments, setComments] = useState<Comment[]>([]);
+  const [commentsFetched, setCommentsFetched] = useState(false);
   const [newComments, setNewComments] = useState<Comment[]>([]);
 
   const location = useLocation();
@@ -25,8 +26,13 @@ function CommentsWrapper({ post, loggedInUser }: CommentsWrapperProps) {
 
     getPostComments(post._id, searchParams).then((data) => {
       setComments(data.data);
+      setCommentsFetched(true);
     });
   }, [post._id, searchParams]);
+
+  if (!commentsFetched) {
+    return <></>;
+  }
 
   return (
     <div className={styles.container}>
