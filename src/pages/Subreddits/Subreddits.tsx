@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Subreddit, User } from "../../types/types";
-import { getLoggedInUser, getSubredditCount, getSubreddits } from "../../api";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
+import { Subreddit } from "../../types/types";
+import { getSubredditCount, getSubreddits } from "../../api";
 
 import SortingOptions from "../../components/SortingOptions/SortingOptions";
 import Pagination from "../../components/Pagination/Pagination";
@@ -11,10 +13,13 @@ import styles from "./Subreddits.module.css";
 
 function Subreddits() {
   const [subreddits, setSubreddits] = useState<Subreddit[]>([]);
+  const [subredditsFetched, setSubredditsFetched] = useState(false);
   const [subredditCount, setSubredditCount] = useState(0);
-  const [loggedInUser, setLoggedInUser] = useState<User>();
-  const [showContent, setShowContent] = useState(false);
+  const [subredditCountFetched, setSubredditCountFetched] = useState(false);
 
+  const { loggedInUser, authFetched } = useSelector(
+    (state: RootState) => state.auth
+  );
   const location = useLocation();
   const searchParams = location.search;
 
@@ -27,6 +32,8 @@ function Subreddits() {
         setSubreddits(response.data);
       } catch (error: any) {
         // error fetching subreddits
+      } finally {
+        setSubredditsFetched(true);
       }
     };
 
@@ -37,29 +44,16 @@ function Subreddits() {
         setSubredditCount(count);
       } catch (error: any) {
         // error fetching subreddit count
-      }
-      setShowContent(true);
-    };
-
-    const fetchLoggedInUser = async () => {
-      try {
-        const response = await getLoggedInUser();
-
-        // user is logged in
-        if (response && response.status === 200) {
-          setLoggedInUser(response.data);
-        }
-      } catch (error) {
-        // error fetching logged in user
+      } finally {
+        setSubredditCountFetched(true);
       }
     };
 
     fetchSubreddits();
     fetchSubredditCount();
-    fetchLoggedInUser();
   }, [searchParams]);
 
-  if (!showContent) {
+  if (!authFetched || !subredditsFetched || !subredditCountFetched) {
     return <></>;
   }
 
