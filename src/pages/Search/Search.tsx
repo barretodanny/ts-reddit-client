@@ -49,6 +49,21 @@ function Search() {
   const type = getSearchTypeQueryParam(searchParams);
 
   useEffect(() => {
+    setPosts([]);
+    setPostsFetched(false);
+    setPostCount(0);
+    setPostCountFetched(false);
+    setSubreddits([]);
+    setSubredditsFetched(false);
+    setSubredditCount(0);
+    setSubredditCountFetched(false);
+    setUsers([]);
+    setUsersFetched(false);
+    setUserCount(0);
+    setUserCountFetched(false);
+  }, [search, type]);
+
+  useEffect(() => {
     document.title = search ? `Search result - ${search}` : "Search";
 
     const fetchData = async () => {
