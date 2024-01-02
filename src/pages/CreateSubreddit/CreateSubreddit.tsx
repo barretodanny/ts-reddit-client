@@ -1,36 +1,21 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { User } from "../../types/types";
-import { getLoggedInUser } from "../../api";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 import SubredditForm from "../../components/SubredditForm/SubredditForm";
 
 import styles from "./CreateSubreddit.module.css";
 
 function CreateSubreddit() {
-  const [loggedInUser, setLoggedInUser] = useState<User>();
-  const [showContent, setShowContent] = useState(false);
+  const { loggedInUser, authFetched } = useSelector(
+    (state: RootState) => state.auth
+  );
 
   useEffect(() => {
     document.title = "Create New Subreddit";
-
-    const fetchLoggedInUser = async () => {
-      try {
-        const response = await getLoggedInUser();
-
-        // user is logged in
-        if (response && response.status === 200) {
-          setLoggedInUser(response.data);
-        }
-      } catch (error) {
-        // error fetching logged in user
-      }
-      setShowContent(true);
-    };
-
-    fetchLoggedInUser();
   }, []);
 
-  if (!showContent) {
+  if (!authFetched) {
     return <></>;
   }
 
