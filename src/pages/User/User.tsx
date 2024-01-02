@@ -1,16 +1,22 @@
 import { useEffect, useState } from "react";
-import { User as UserType } from "../../types/types";
 import { useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
+import { User as UserType } from "../../types/types";
 import { extractUsername, getTimeAgo } from "../../utils/utils";
-import { getLoggedInUser, getUserByUsername } from "../../api";
+import { getUserByUsername } from "../../api";
 
-import styles from "./User.module.css";
 import ProfileOptions from "../../components/ProfileOptions/ProfileOptions";
 
-function User() {
-  const [loggedInUser, setLoggedInUser] = useState<UserType>();
-  const [user, setUser] = useState<UserType>();
+import styles from "./User.module.css";
 
+function User() {
+  const [user, setUser] = useState<UserType>();
+  const [userFetched, setUserFetched] = useState(false);
+
+  const { loggedInUser, authFetched } = useSelector(
+    (state: RootState) => state.auth
+  );
   const location = useLocation();
   const url = location.pathname;
   const username = extractUsername(url);
@@ -18,29 +24,31 @@ function User() {
   const timeAgo = user ? getTimeAgo(user.createdAt) : "";
 
   useEffect(() => {
-    document.title = `${username}'s Profile`;
-
     const fetchUser = async () => {
       try {
         const response = await getUserByUsername(username);
         setUser(response);
       } catch (error: any) {
         // error fetching user
-      }
-    };
-
-    const fetchLoggedInUser = async () => {
-      try {
-        const response = await getLoggedInUser();
-        setLoggedInUser(response.data);
-      } catch (error: any) {
-        // error fetching logged in user
+      } finally {
+        setUserFetched(true);
       }
     };
 
     fetchUser();
-    fetchLoggedInUser();
   }, []);
+
+  useEffect(() => {
+    if (!userFetched) {
+      return;
+    }
+
+    document.title = user ? `${user.username}'s Profile` : "User Not Found";
+  }, [user, userFetched]);
+
+  if (!authFetched || !userFetched) {
+    return <></>;
+  }
 
   if (!user) {
     return (
