@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { Comment, User } from "../../types/types";
 import { Link, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
+import { Comment, User } from "../../types/types";
 import { extractUsername, getTimeAgo } from "../../utils/utils";
 import {
-  getLoggedInUser,
   getUserByUsername,
   getUserCommentCount,
   getUserComments,
@@ -17,11 +18,16 @@ import UserCommentList from "../../components/UserCommentList/UserCommentList";
 import styles from "./UserComments.module.css";
 
 function UserComments() {
-  const [loggedInUser, setLoggedInUser] = useState<User>();
   const [user, setUser] = useState<User>();
+  const [userFetched, setUserFetched] = useState(false);
   const [comments, setComments] = useState<Comment[]>([]);
+  const [commentsFetched, setCommentsFetched] = useState(false);
   const [commentCount, setCommentCount] = useState(0);
+  const [commentCountFetched, setCommentCountFetched] = useState(false);
 
+  const { loggedInUser, authFetched } = useSelector(
+    (state: RootState) => state.auth
+  );
   const location = useLocation();
   const url = location.pathname;
   const searchParams = location.search;
@@ -30,37 +36,35 @@ function UserComments() {
   const timeAgo = user ? getTimeAgo(user.createdAt) : "";
 
   useEffect(() => {
-    document.title = `${username}'s Comments`;
-
     const fetchUser = async () => {
       try {
         const response = await getUserByUsername(username);
         setUser(response);
       } catch (error: any) {
         // error fetching user
-      }
-    };
-
-    const fetchLoggedInUser = async () => {
-      try {
-        const response = await getLoggedInUser();
-        setLoggedInUser(response.data);
-      } catch (error: any) {
-        // error fetching logged in user
+      } finally {
+        setUserFetched(true);
       }
     };
 
     fetchUser();
-    fetchLoggedInUser();
   }, []);
 
   useEffect(() => {
+    if (!userFetched) {
+      return;
+    }
+
+    document.title = user ? `${user.username}'s Comments` : "User Not Found";
+
     const fetchUserComments = async () => {
       try {
         const response = await getUserComments(user!._id, searchParams);
         setComments(response.data);
       } catch (error: any) {
         // error fetching user's comments
+      } finally {
+        setCommentsFetched(true);
       }
     };
 
@@ -71,12 +75,23 @@ function UserComments() {
         setCommentCount(count);
       } catch (error: any) {
         // error fetching user's comment count
+      } finally {
+        setCommentCountFetched(true);
       }
     };
 
     fetchUserComments();
     fetchUserCommentCount();
-  }, [user]);
+  }, [user, userFetched, searchParams]);
+
+  if (
+    !authFetched ||
+    !userFetched ||
+    !commentsFetched ||
+    !commentCountFetched
+  ) {
+    return <></>;
+  }
 
   if (!user) {
     return (
