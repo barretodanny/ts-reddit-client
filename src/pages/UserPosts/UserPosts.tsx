@@ -1,13 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 import { Post, User } from "../../types/types";
 import { extractUsername, getTimeAgo } from "../../utils/utils";
-import {
-  getLoggedInUser,
-  getUserByUsername,
-  getUserPostCount,
-  getUserPosts,
-} from "../../api";
+import { getUserByUsername, getUserPostCount, getUserPosts } from "../../api";
 import ProfileOptions from "../../components/ProfileOptions/ProfileOptions";
 import SortingOptions from "../../components/SortingOptions/SortingOptions";
 import Pagination from "../../components/Pagination/Pagination";
@@ -16,11 +13,16 @@ import PostList from "../../components/PostList/PostList";
 import styles from "./UserPosts.module.css";
 
 function UserPosts() {
-  const [loggedInUser, setLoggedInUser] = useState<User>();
   const [user, setUser] = useState<User>();
+  const [userFetched, setUserFetched] = useState(false);
   const [posts, setPosts] = useState<Post[]>([]);
+  const [postsFetched, setPostsFetched] = useState(false);
   const [postCount, setPostCount] = useState(0);
+  const [postCountFetched, setPostCountFetched] = useState(false);
 
+  const { loggedInUser, authFetched } = useSelector(
+    (state: RootState) => state.auth
+  );
   const location = useLocation();
   const url = location.pathname;
   const searchParams = location.search;
@@ -29,37 +31,35 @@ function UserPosts() {
   const timeAgo = user ? getTimeAgo(user.createdAt) : "";
 
   useEffect(() => {
-    document.title = `${username}'s Posts`;
-
     const fetchUser = async () => {
       try {
         const response = await getUserByUsername(username);
         setUser(response);
       } catch (error: any) {
         // error fetching user
-      }
-    };
-
-    const fetchLoggedInUser = async () => {
-      try {
-        const response = await getLoggedInUser();
-        setLoggedInUser(response.data);
-      } catch (error: any) {
-        // error fetching logged in user
+      } finally {
+        setUserFetched(true);
       }
     };
 
     fetchUser();
-    fetchLoggedInUser();
   }, []);
 
   useEffect(() => {
+    if (!userFetched) {
+      return;
+    }
+
+    document.title = user ? `${user.username}'s Posts` : "User Not Found";
+
     const fetchUserPosts = async () => {
       try {
         const response = await getUserPosts(user!._id, searchParams);
         setPosts(response.data);
       } catch (error: any) {
         // error fetching user's comments
+      } finally {
+        setPostsFetched(true);
       }
     };
 
@@ -70,12 +70,18 @@ function UserPosts() {
         setPostCount(count);
       } catch (error: any) {
         // error fetching user's comment count
+      } finally {
+        setPostCountFetched(true);
       }
     };
 
     fetchUserPosts();
     fetchUserPostCount();
-  }, [user]);
+  }, [user, userFetched, searchParams]);
+
+  if (!authFetched || !userFetched || !postsFetched || !postCountFetched) {
+    return <></>;
+  }
 
   if (!user) {
     return (
