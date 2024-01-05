@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { Subreddit, User } from "../../types/types";
 import { Link, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
+import { Subreddit, User } from "../../types/types";
 import { extractUsername, getTimeAgo } from "../../utils/utils";
 import {
-  getLoggedInUser,
   getUserByUsername,
   getUserSubredditCount,
   getUserSubreddits,
@@ -16,11 +17,16 @@ import SubredditList from "../../components/SubredditList/SubredditList";
 import styles from "./UserSubreddits.module.css";
 
 function UserSubreddits() {
-  const [loggedInUser, setLoggedInUser] = useState<User>();
   const [user, setUser] = useState<User>();
+  const [userFetched, setUserFetched] = useState(false);
   const [subreddits, setSubreddits] = useState<Subreddit[]>([]);
+  const [subredditsFetched, setSubredditsFetched] = useState(false);
   const [subredditCount, setSubredditCount] = useState(0);
+  const [subredditCountFetched, setSubredditCountFetched] = useState(false);
 
+  const { loggedInUser, authFetched } = useSelector(
+    (state: RootState) => state.auth
+  );
   const location = useLocation();
   const url = location.pathname;
   const searchParams = location.search;
@@ -29,37 +35,35 @@ function UserSubreddits() {
   const timeAgo = user ? getTimeAgo(user.createdAt) : "";
 
   useEffect(() => {
-    document.title = `${username}'s Subreddits`;
-
     const fetchUser = async () => {
       try {
         const response = await getUserByUsername(username);
         setUser(response);
       } catch (error: any) {
         // error fetching user
-      }
-    };
-
-    const fetchLoggedInUser = async () => {
-      try {
-        const response = await getLoggedInUser();
-        setLoggedInUser(response.data);
-      } catch (error: any) {
-        // error fetching logged in user
+      } finally {
+        setUserFetched(true);
       }
     };
 
     fetchUser();
-    fetchLoggedInUser();
   }, []);
 
   useEffect(() => {
+    if (!userFetched) {
+      return;
+    }
+
+    document.title = user ? `${user.username}'s Subreddits` : "User Not Found";
+
     const fetchUserSubreddits = async () => {
       try {
         const response = await getUserSubreddits(user!._id, searchParams);
         setSubreddits(response.data);
       } catch (error: any) {
         // error fetching user's subreddits
+      } finally {
+        setSubredditsFetched(true);
       }
     };
 
@@ -70,12 +74,23 @@ function UserSubreddits() {
         setSubredditCount(count);
       } catch (error: any) {
         // error fetching user's subreddit count
+      } finally {
+        setSubredditCountFetched(true);
       }
     };
 
     fetchUserSubreddits();
     fetchUserSubredditCount();
-  }, [user]);
+  }, [user, !userFetched, searchParams]);
+
+  if (
+    !authFetched ||
+    !userFetched ||
+    !subredditsFetched ||
+    !subredditCountFetched
+  ) {
+    return <></>;
+  }
 
   if (!user) {
     return (
