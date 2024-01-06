@@ -17,6 +17,7 @@ import UserPosts from "./pages/UserPosts/UserPosts";
 import UserSubreddits from "./pages/UserSubreddits/UserSubreddits";
 import EditUser from "./pages/EditUser/EditUser";
 import Users from "./pages/Users/Users";
+import NotFound from "./pages/NotFound/NotFound";
 
 import Navbar from "./components/Navbar/Navbar";
 import TopBtn from "./components/TopBtn/TopBtn";
@@ -57,6 +58,7 @@ function App() {
         />
         <Route path="/u/:username/edit" element={<EditUser></EditUser>} />
         <Route path="/users" element={<Users></Users>} />
+        <Route path="*" element={<NotFound></NotFound>} />
       </Routes>
     </Router>
   );
