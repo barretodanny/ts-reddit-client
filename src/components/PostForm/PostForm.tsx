@@ -1,10 +1,8 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useNavigate } from "react-router-dom";
-
 import { createPost } from "../../api";
-
 import { createPostSchema } from "../../schemas/schemas";
 import { CreatePostInput, Post, Subreddit } from "../../types/types";
 

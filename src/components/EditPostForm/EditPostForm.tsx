@@ -5,9 +5,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { EditPostInput, Post, Subreddit } from "../../types/types";
 import { editPostSchema } from "../../schemas/schemas";
 import { updatePost } from "../../api";
+import DeletePostBtn from "../DeletePostBtn/DeletePostBtn";
 
 import styles from "./EditPostForm.module.css";
-import DeletePostBtn from "../DeletePostBtn/DeletePostBtn";
 
 interface EditPostFormProps {
   post: Post;

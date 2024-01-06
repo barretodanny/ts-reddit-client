@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { EditUserInput, User } from "../../types/types";
+import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { EditUserInput, User } from "../../types/types";
 import { editUserSchema } from "../../schemas/schemas";
-import { useNavigate } from "react-router-dom";
+import { updateUser } from "../../api";
 import DeleteAccountBtn from "../DeleteAccountBtn/DeleteAccountBtn";
 
 import styles from "./EditUserForm.module.css";
-import { updateUser } from "../../api";
 
 interface EditUserFormProps {
   user: User;

@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { Post as PostType, Subreddit, User, Vote } from "../../types/types";
 import { getUserPostVote } from "../../api";
+import { getTimeAgo } from "../../utils/utils";
+import PostVote from "../PostVote/PostVote";
 
 import styles from "./Post.module.css";
-import PostVote from "../PostVote/PostVote";
-import { Link } from "react-router-dom";
-import { getTimeAgo } from "../../utils/utils";
 
 interface PostProps {
   post: PostType;

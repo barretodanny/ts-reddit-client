@@ -13,9 +13,9 @@ import SearchBar from "../../components/SearchBar/SearchBar";
 import SortingOptions from "../../components/SortingOptions/SortingOptions";
 import Pagination from "../../components/Pagination/Pagination";
 import PostList from "../../components/PostList/PostList";
+import SubredditNotFound from "../../components/SubredditNotFound/SubredditNotFound";
 
 import styles from "./SearchSubreddit.module.css";
-import SubredditNotFound from "../../components/SubredditNotFound/SubredditNotFound";
 
 function SearchSubreddit() {
   const [subreddit, setSubreddit] = useState<Subreddit>();

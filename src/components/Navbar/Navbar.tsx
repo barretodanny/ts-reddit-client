@@ -1,8 +1,8 @@
 import { useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../redux/store";
 import { getAuthUser, reset } from "../../redux/slices/AuthSlice";
-import { Link } from "react-router-dom";
 
 import { AiOutlineMenu } from "react-icons/ai";
 import { BiUserCircle, BiDotsHorizontalRounded } from "react-icons/bi";

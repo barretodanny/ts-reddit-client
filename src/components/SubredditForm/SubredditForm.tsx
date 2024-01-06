@@ -2,9 +2,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
-
 import { createSubreddit } from "../../api";
-
 import { createSubredditSchema } from "../../schemas/schemas";
 import { CreateSubredditInput } from "../../types/types";
 

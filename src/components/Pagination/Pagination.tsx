@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import {
   getLimitQueryParam,
@@ -6,7 +7,6 @@ import {
 } from "../../utils/utils";
 
 import styles from "./Pagination.module.css";
-import { useEffect, useState } from "react";
 
 interface PaginationProps {
   searchParams: string;

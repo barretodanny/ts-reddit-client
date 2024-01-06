@@ -1,5 +1,4 @@
 import { Link, useLocation } from "react-router-dom";
-
 import { getSortQueryParam, updateSortQueryParam } from "../../utils/utils";
 
 import styles from "./SortingOptions.module.css";

@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
-import { Post, User, Vote } from "../../types/types";
 import { BiSolidDownArrow, BiSolidUpArrow } from "react-icons/bi";
+import { Post, User, Vote } from "../../types/types";
 import {
   createPostVote,
   deletePostVote,
   getUserPostVote,
   updatePostVote,
 } from "../../api";
+
 import styles from "./PostVote.module.css";
 
 interface PostVoteProps {

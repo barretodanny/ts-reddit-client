@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { BiSolidDownArrow, BiSolidUpArrow } from "react-icons/bi";
 import { Comment, Vote } from "../../types/types";
 import {
   createCommentVote,
@@ -6,7 +7,6 @@ import {
   getUserCommentVote,
   updateCommentVote,
 } from "../../api";
-import { BiSolidDownArrow, BiSolidUpArrow } from "react-icons/bi";
 
 import styles from "./CommentVote.module.css";
 

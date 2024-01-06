@@ -9,9 +9,9 @@ import ProfileOptions from "../../components/ProfileOptions/ProfileOptions";
 import SortingOptions from "../../components/SortingOptions/SortingOptions";
 import Pagination from "../../components/Pagination/Pagination";
 import PostList from "../../components/PostList/PostList";
+import UserNotFound from "../../components/UserNotFound/UserNotFound";
 
 import styles from "./UserPosts.module.css";
-import UserNotFound from "../../components/UserNotFound/UserNotFound";
 
 function UserPosts() {
   const [user, setUser] = useState<User>();

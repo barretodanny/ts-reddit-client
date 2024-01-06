@@ -2,16 +2,14 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useNavigate } from "react-router-dom";
-
-import { createUserSchema } from "../../schemas/schemas";
-import { CreateUserInput } from "../../types/types";
-
-import { createUser } from "../../api";
-
-import styles from "./RegisterForm.module.css";
 import { BiUserCircle } from "react-icons/bi";
 import { AiOutlineMail } from "react-icons/ai";
 import { RiLockPasswordLine } from "react-icons/ri";
+import { createUserSchema } from "../../schemas/schemas";
+import { CreateUserInput } from "../../types/types";
+import { createUser } from "../../api";
+
+import styles from "./RegisterForm.module.css";
 
 function RegisterForm() {
   const [registerError, setRegisterError] = useState("");

@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { User } from "../../types/types";
+import { deleteSession, deleteUser } from "../../api";
 
 import styles from "./DeleteAccountBtn.module.css";
-import { deleteSession, deleteUser } from "../../api";
 
 interface DeleteAccountBtnProps {
   user: User;

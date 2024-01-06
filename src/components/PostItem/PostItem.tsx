@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { getUserPostVote } from "../../api";
+import { Post, User, Vote } from "../../types/types";
+import { getTimeAgo } from "../../utils/utils";
+import PostVote from "../PostVote/PostVote";
 
 import styles from "./PostItem.module.css";
-import { Post, User, Vote } from "../../types/types";
-import { Link } from "react-router-dom";
-import PostVote from "../PostVote/PostVote";
-import { getUserPostVote } from "../../api";
-import { getTimeAgo } from "../../utils/utils";
 
 interface PostItemProps {
   post: Post;

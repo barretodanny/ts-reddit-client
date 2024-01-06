@@ -1,7 +1,7 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { Comment, User } from "../../types/types";
 import { createComment } from "../../api";
-import { Link } from "react-router-dom";
 
 import styles from "./CommentReplyForm.module.css";
 

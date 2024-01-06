@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { Comment, Post, User } from "../../types/types";
 import { useLocation } from "react-router-dom";
+import { Comment, Post, User } from "../../types/types";
 import { getPostComments } from "../../api";
 
 import CommentList from "../CommentList/CommentList";

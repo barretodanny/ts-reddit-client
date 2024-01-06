@@ -1,7 +1,7 @@
 import { useState } from "react";
-import { Subreddit } from "../../types/types";
 import { useNavigate } from "react-router-dom";
 import { AiOutlineSearch } from "react-icons/ai";
+import { Subreddit } from "../../types/types";
 
 import styles from "./SearchBar.module.css";
 

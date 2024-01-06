@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import { CreateCommentInput, Post, User } from "../../types/types";
+import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { CreateCommentInput, Post, User } from "../../types/types";
 import { createCommentSchema } from "../../schemas/schemas";
-import { Link } from "react-router-dom";
+import { createComment } from "../../api";
 
 import styles from "./CreateCommentForm.module.css";
-import { createComment } from "../../api";
 
 interface CreateCommentFormProps {
   post: Post;

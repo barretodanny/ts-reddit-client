@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { getSubredditById } from "../../api";
 import { Comment, Subreddit } from "../../types/types";
 import { getTimeAgo } from "../../utils/utils";
-import { getSubredditById } from "../../api";
-import { Link } from "react-router-dom";
 
 import styles from "./UserCommentItem.module.css";
 
