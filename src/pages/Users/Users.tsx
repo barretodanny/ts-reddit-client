@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 import { User } from "../../types/types";
 import { getUserCount, getUsers } from "../../api";
 
@@ -11,9 +13,11 @@ import styles from "./Users.module.css";
 
 function Users() {
   const [users, setUsers] = useState<User[]>([]);
+  const [usersFetched, setUsersFetched] = useState(false);
   const [userCount, setUserCount] = useState(0);
-  const [showContent, setShowContent] = useState(false);
+  const [userCountFetched, setUserCountFetched] = useState(false);
 
+  const { authFetched } = useSelector((state: RootState) => state.auth);
   const location = useLocation();
   const searchParams = location.search;
 
@@ -26,6 +30,8 @@ function Users() {
         setUsers(response.data);
       } catch (error: any) {
         // error fetching users
+      } finally {
+        setUsersFetched(true);
       }
     };
 
@@ -36,15 +42,16 @@ function Users() {
         setUserCount(count);
       } catch (error: any) {
         // error fetching users count
+      } finally {
+        setUserCountFetched(true);
       }
-      setShowContent(true);
     };
 
     fetchUsers();
     fetchUserCount();
   }, [searchParams]);
 
-  if (!showContent) {
+  if (!authFetched || !usersFetched || !userCountFetched) {
     return <></>;
   }
 
