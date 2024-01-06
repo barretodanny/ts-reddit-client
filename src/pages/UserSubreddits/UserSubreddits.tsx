@@ -13,6 +13,7 @@ import ProfileOptions from "../../components/ProfileOptions/ProfileOptions";
 import SortingOptions from "../../components/SortingOptions/SortingOptions";
 import Pagination from "../../components/Pagination/Pagination";
 import SubredditList from "../../components/SubredditList/SubredditList";
+import UserNotFound from "../../components/UserNotFound/UserNotFound";
 
 import styles from "./UserSubreddits.module.css";
 
@@ -93,11 +94,7 @@ function UserSubreddits() {
   }
 
   if (!user) {
-    return (
-      <h2 className={`${styles.heading} ${styles.white} ${styles.notFound}`}>
-        User not found
-      </h2>
-    );
+    return <UserNotFound />;
   }
 
   return (

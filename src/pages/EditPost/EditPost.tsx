@@ -7,6 +7,8 @@ import { extractPostId, extractSubredditName } from "../../utils/utils";
 import { getPostById, getSubredditByName } from "../../api";
 
 import EditPostForm from "../../components/EditPostForm/EditPostForm";
+import SubredditNotFound from "../../components/SubredditNotFound/SubredditNotFound";
+import PostNotFound from "../../components/PostNotFound/PostNotFound";
 
 import styles from "./EditPost.module.css";
 
@@ -69,23 +71,11 @@ function EditPost() {
   }
 
   if (!subreddit) {
-    return (
-      <div className={styles.container}>
-        <h1 className={`${styles.heading} ${styles.white} ${styles.center}`}>
-          Subreddit does not exist
-        </h1>
-      </div>
-    );
+    return <SubredditNotFound />;
   }
 
   if (!post) {
-    return (
-      <div className={styles.container}>
-        <h1 className={`${styles.heading} ${styles.white} ${styles.center}`}>
-          Post does not exist
-        </h1>
-      </div>
-    );
+    return <PostNotFound />;
   }
 
   return (

@@ -15,6 +15,7 @@ import Pagination from "../../components/Pagination/Pagination";
 import PostList from "../../components/PostList/PostList";
 
 import styles from "./SearchSubreddit.module.css";
+import SubredditNotFound from "../../components/SubredditNotFound/SubredditNotFound";
 
 function SearchSubreddit() {
   const [subreddit, setSubreddit] = useState<Subreddit>();
@@ -94,7 +95,7 @@ function SearchSubreddit() {
   }
 
   if (!subreddit) {
-    return <h2 className={styles.nfHeading}>Subreddit not found</h2>;
+    return <SubredditNotFound />;
   }
 
   return (

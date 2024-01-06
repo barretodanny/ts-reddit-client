@@ -14,6 +14,7 @@ import SortingOptions from "../../components/SortingOptions/SortingOptions";
 import Pagination from "../../components/Pagination/Pagination";
 import SecondaryOptions from "../../components/SecondaryOptions/SecondaryOptions";
 import PostList from "../../components/PostList/PostList";
+import SubredditNotFound from "../../components/SubredditNotFound/SubredditNotFound";
 
 import styles from "./Subreddit.module.css";
 
@@ -90,11 +91,7 @@ function Subreddit() {
   }
 
   if (!subreddit) {
-    return (
-      <h2 className={`${styles.heading} ${styles.notFound}`}>
-        Subreddit not found
-      </h2>
-    );
+    return <SubredditNotFound />;
   }
 
   return (

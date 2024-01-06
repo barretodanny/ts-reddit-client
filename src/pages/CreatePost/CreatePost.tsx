@@ -7,6 +7,7 @@ import { extractSubredditName } from "../../utils/utils";
 import { getSubredditByName } from "../../api";
 
 import PostForm from "../../components/PostForm/PostForm";
+import SubredditNotFound from "../../components/SubredditNotFound/SubredditNotFound";
 
 import styles from "./CreatePost.module.css";
 
@@ -51,7 +52,7 @@ function CreatePost() {
   }
 
   if (!subreddit) {
-    return <h2 className={styles.nfHeading}>Subreddit not found</h2>;
+    return <SubredditNotFound />;
   }
 
   return (

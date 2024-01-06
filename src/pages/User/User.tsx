@@ -7,6 +7,7 @@ import { extractUsername, getTimeAgo } from "../../utils/utils";
 import { getUserByUsername } from "../../api";
 
 import ProfileOptions from "../../components/ProfileOptions/ProfileOptions";
+import UserNotFound from "../../components/UserNotFound/UserNotFound";
 
 import styles from "./User.module.css";
 
@@ -51,9 +52,7 @@ function User() {
   }
 
   if (!user) {
-    return (
-      <h2 className={`${styles.heading} ${styles.notFound}`}>User not found</h2>
-    );
+    return <UserNotFound />;
   }
 
   return (

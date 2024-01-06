@@ -7,6 +7,7 @@ import { extractUsername } from "../../utils/utils";
 import { getUserByUsername } from "../../api";
 
 import EditUserForm from "../../components/EditUserForm/EditUserForm";
+import UserNotFound from "../../components/UserNotFound/UserNotFound";
 
 import styles from "./EditUser.module.css";
 
@@ -49,13 +50,7 @@ function EditUser() {
   }
 
   if (!user) {
-    return (
-      <div className={styles.container}>
-        <h1 className={`${styles.heading} ${styles.white} ${styles.center}`}>
-          User does not exist
-        </h1>
-      </div>
-    );
+    return <UserNotFound />;
   }
 
   return (

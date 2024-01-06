@@ -14,6 +14,7 @@ import ProfileOptions from "../../components/ProfileOptions/ProfileOptions";
 import SortingOptions from "../../components/SortingOptions/SortingOptions";
 import Pagination from "../../components/Pagination/Pagination";
 import UserCommentList from "../../components/UserCommentList/UserCommentList";
+import UserNotFound from "../../components/UserNotFound/UserNotFound";
 
 import styles from "./UserComments.module.css";
 
@@ -94,11 +95,7 @@ function UserComments() {
   }
 
   if (!user) {
-    return (
-      <h2 className={`${styles.heading} ${styles.white} ${styles.notFound}`}>
-        User not found
-      </h2>
-    );
+    return <UserNotFound />;
   }
 
   return (

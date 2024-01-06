@@ -11,6 +11,7 @@ import Pagination from "../../components/Pagination/Pagination";
 import PostList from "../../components/PostList/PostList";
 
 import styles from "./UserPosts.module.css";
+import UserNotFound from "../../components/UserNotFound/UserNotFound";
 
 function UserPosts() {
   const [user, setUser] = useState<User>();
@@ -84,11 +85,7 @@ function UserPosts() {
   }
 
   if (!user) {
-    return (
-      <h2 className={`${styles.heading} ${styles.white} ${styles.notFound}`}>
-        User not found
-      </h2>
-    );
+    return <UserNotFound />;
   }
 
   return (
