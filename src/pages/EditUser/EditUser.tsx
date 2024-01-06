@@ -1,45 +1,52 @@
 import { useEffect, useState } from "react";
-import { User } from "../../types/types";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 import { Link, useLocation } from "react-router-dom";
+import { User } from "../../types/types";
 import { extractUsername } from "../../utils/utils";
-import { getLoggedInUser, getUserByUsername } from "../../api";
+import { getUserByUsername } from "../../api";
 
 import EditUserForm from "../../components/EditUserForm/EditUserForm";
 
 import styles from "./EditUser.module.css";
 
 function EditUser() {
-  const [loggedInUser, setLoggedInUser] = useState<User>();
   const [user, setUser] = useState<User>();
+  const [userFetched, setUserFetched] = useState(false);
 
+  const { loggedInUser, authFetched } = useSelector(
+    (state: RootState) => state.auth
+  );
   const location = useLocation();
   const url = location.pathname;
   const username = extractUsername(url);
 
   useEffect(() => {
-    document.title = `Edit ${username}'s Profile`;
-
     const fetchUser = async () => {
       try {
         const response = await getUserByUsername(username);
         setUser(response);
       } catch (error: any) {
         // error fetching user
-      }
-    };
-
-    const fetchLoggedInUser = async () => {
-      try {
-        const response = await getLoggedInUser();
-        setLoggedInUser(response.data);
-      } catch (error: any) {
-        // error fetching logged in user
+      } finally {
+        setUserFetched(true);
       }
     };
 
     fetchUser();
-    fetchLoggedInUser();
   }, []);
+
+  useEffect(() => {
+    if (!userFetched) {
+      return;
+    }
+
+    document.title = user ? `Edit ${username}'s Profile` : "User Not Found";
+  }, [user, userFetched]);
+
+  if (!authFetched || !userFetched) {
+    return <></>;
+  }
 
   if (!user) {
     return (
