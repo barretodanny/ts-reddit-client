@@ -24,7 +24,7 @@ import TopBtn from "./components/TopBtn/TopBtn";
 
 function App() {
   return (
-    <Router>
+    <Router basename="/app/reddit">
       <Navbar />
       <TopBtn />
       <Routes>

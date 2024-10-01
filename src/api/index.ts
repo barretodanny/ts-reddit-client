@@ -10,7 +10,7 @@ import {
   EditUserInput,
 } from "../types/types";
 
-const ENDPOINT = "http://localhost:1337/api";
+const ENDPOINT = "https://api2.dannbarr.dev/api";
 
 // USERS
 export const getUsers = async (searchParams: string) => {
