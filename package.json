@@ -19,6 +19,7 @@
     "react-icons": "^4.12.0",
     "react-redux": "^9.0.4",
     "react-router-dom": "^6.21.0",
+    "ts-reddit-client": "file:",
     "zod": "^3.22.4"
   },
   "devDependencies": {
